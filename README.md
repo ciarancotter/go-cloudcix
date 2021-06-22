@@ -81,8 +81,7 @@ switches just print the data. Feel free to modify these switches to your own
 needs.
 
 All code accessing the API client itself should be in `main.go`. 
-This assumes that you have configured the `config.json` file with 
-your credentials already. The sample I provided contains the following:
+The sample I provided contains the following:
 
 ```
 package main
