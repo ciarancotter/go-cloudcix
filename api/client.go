@@ -9,7 +9,7 @@ import (
 )
 
 type CloudCIX_Client struct {
-	Email, Password, Api_key, Token string
+	Email, Password, Api_key, Token, API_URL string
 }
 
 func (cix_client CloudCIX_Client) Get_Token() string {
@@ -31,7 +31,7 @@ func (cix_client CloudCIX_Client) Get_Token() string {
 
 func (cix_client CloudCIX_Client) Read_Data(application string, service string, object_id string, token string) {
 	client := http.Client{}
-	url := "https://" + application + ".api.cloudcix.com/" + service + "/" + object_id
+	url := "https://" + application + "." + cix_client.API_URL + "/" + service + "/" + object_id
 	request, _ := http.NewRequest("GET", url, nil)
 	request.Header.Set("X-Auth-Token", token)
 	response, err := client.Do(request)
