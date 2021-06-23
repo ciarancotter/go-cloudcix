@@ -9,6 +9,7 @@ func main() {
 		Email:    "example email",
 		Password: "example password",
 		Api_key:  "example API key",
+		API_URL:  "api.cloudcix.com",
 	}
 
 	my_client.Token = my_client.Get_Token()
