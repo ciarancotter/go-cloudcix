@@ -1,3 +1,3 @@
-module CloudCIX
+module go-cloudcix
 
 go 1.16
