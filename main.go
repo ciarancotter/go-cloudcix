@@ -1,7 +1,7 @@
 package main
 
 import (
-	"CloudCIX/api"
+	"github.com/CloudCIX/go-cloudcix/api"
 )
 
 func main() {
