@@ -1,14 +1,12 @@
 package main
 
-import (
-	"CloudCIX/api"
-)
+import "github.com/CloudCIX/go-cloudcix/api"
 
 func main() {
 	my_client := api.CloudCIX_Client{
-		Email:    "example email",
-		Password: "example password",
-		Api_key:  "example API key",
+		Email:    "example_email",
+		Password: "example_password",
+		Api_key:  "example_api_key",
 		API_URL:  "api.cloudcix.com",
 	}
 
