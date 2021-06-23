@@ -1,6 +1,6 @@
 package api
 
-type CLASS struct {
+type Class struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -24,7 +24,7 @@ type CLASS struct {
 	} `json:"content"`
 }
 
-type CLASS_SPECIFIC struct {
+type ClassSpecific struct {
 	Content struct {
 		FinishDate string `json:"finish_date"`
 		ID         int    `json:"id"`
@@ -41,7 +41,7 @@ type CLASS_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type STUDENT struct {
+type Student struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -71,7 +71,7 @@ type STUDENT struct {
 	} `json:"content"`
 }
 
-type STUDENT_SPECIFIC struct {
+type StudentSpecific struct {
 	Content struct {
 		Cls struct {
 			FinishDate string `json:"finish_date"`
@@ -94,7 +94,7 @@ type STUDENT_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type SYLLABUS struct {
+type Syllabus struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -111,7 +111,7 @@ type SYLLABUS struct {
 	} `json:"content"`
 }
 
-type SYLLABUS_SPECIFIC struct {
+type SyllabusSpecific struct {
 	Content struct {
 		Description string `json:"description"`
 		ID          int    `json:"id"`

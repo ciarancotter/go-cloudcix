@@ -1,6 +1,6 @@
 package api
 
-type ADDRESS struct {
+type Address struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -118,7 +118,7 @@ type ADDRESS struct {
 	} `json:"content"`
 }
 
-type APP_SETTINGS struct {
+type AppSettings struct {
 	Content struct {
 		Created        string `json:"created"`
 		ID             int    `json:"id"`
@@ -130,7 +130,7 @@ type APP_SETTINGS struct {
 	} `json:"content"`
 }
 
-type COUNTRY struct {
+type Country struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -149,7 +149,7 @@ type COUNTRY struct {
 	} `json:"content"`
 }
 
-type COUNTRY_SPECIFIC struct {
+type CountrySpecific struct {
 	Content struct {
 		Alpha2Code       string `json:"alpha_2_code"`
 		Alpha3Code       string `json:"alpha_3_code"`
@@ -161,7 +161,7 @@ type COUNTRY_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type CURRENCY struct {
+type Currency struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -177,7 +177,7 @@ type CURRENCY struct {
 	} `json:"content"`
 }
 
-type CURRENCY_SPECIFIC struct {
+type CurrencySpecific struct {
 	Content struct {
 		ID     int    `json:"id"`
 		Name   string `json:"name"`
@@ -186,7 +186,7 @@ type CURRENCY_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type DEPARTMENT struct {
+type Department struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -216,7 +216,7 @@ type DEPARTMENT struct {
 	} `json:"content"`
 }
 
-type DEPARTMENT_SPECIFIC struct {
+type DepartmentSpecific struct {
 	Content struct {
 		ID     int `json:"id"`
 		Member struct {
@@ -239,13 +239,13 @@ type DEPARTMENT_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type EMAIL_CONFIRMED struct {
+type EmailConfirmed struct {
 	Content struct {
 		Valid bool `json:"valid"`
 	} `json:"content"`
 }
 
-type LANGUAGE struct {
+type Language struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -262,7 +262,7 @@ type LANGUAGE struct {
 	} `json:"content"`
 }
 
-type LANGUAGE_SPECIFIC struct {
+type LanguageSpecific struct {
 	Content struct {
 		Code        string `json:"code"`
 		EnglishName string `json:"english_name"`
@@ -272,7 +272,7 @@ type LANGUAGE_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type MEMBER struct {
+type Member struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -297,7 +297,7 @@ type MEMBER struct {
 	} `json:"content"`
 }
 
-type MEMBER_SPECIFIC struct {
+type MemberSpecific struct {
 	Content struct {
 		APIKey   string `json:"api_key"`
 		Currency struct {
@@ -315,7 +315,7 @@ type MEMBER_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type PROFILE struct {
+type Profile struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -345,7 +345,7 @@ type PROFILE struct {
 	} `json:"content"`
 }
 
-type PROFILE_SPECIFIC struct {
+type ProfileSpecific struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -375,7 +375,7 @@ type PROFILE_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type TEAM struct {
+type Team struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -611,7 +611,7 @@ type TEAM struct {
 	} `json:"content"`
 }
 
-type TEAM_SPECIFIC struct {
+type TeamSpecific struct {
 	Content struct {
 		ID     int `json:"id"`
 		Member struct {
@@ -840,7 +840,7 @@ type TEAM_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type TERRITORY struct {
+type Territory struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -870,7 +870,7 @@ type TERRITORY struct {
 	} `json:"content"`
 }
 
-type TERRITORY_SPECIFIC struct {
+type TerritorySpecific struct {
 	Content struct {
 		ID     int `json:"id"`
 		Member struct {
@@ -893,7 +893,7 @@ type TERRITORY_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type TRANSACTION_TYPE struct {
+type TransactionType struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -908,7 +908,7 @@ type TRANSACTION_TYPE struct {
 	} `json:"content"`
 }
 
-type TRANSACTION_TYPE_SPECIFIC struct {
+type TranscationTypeSpecific struct {
 	Content struct {
 		ID   int    `json:"id"`
 		Name string `json:"name"`
@@ -916,7 +916,7 @@ type TRANSACTION_TYPE_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type USER struct {
+type User struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1132,7 +1132,7 @@ type USER struct {
 	} `json:"content"`
 }
 
-type USER_SPECIFIC struct {
+type UserSpecific struct {
 	Content struct {
 		Address struct {
 			Address1         string `json:"address1"`

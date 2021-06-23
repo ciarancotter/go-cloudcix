@@ -5,447 +5,455 @@ import (
 	"fmt"
 )
 
-func Application_switch(application string, service string, object_id string, data []byte, err error) {
+func ApplicationSwitch(application string, service string, objectId string, data []byte) (string, error) {
 	switch application {
 	case "iaas":
-		IAAS_switch(service, object_id, data, err)
-
+		return IaasSwitch(service, objectId, data)
 	case "membership":
-		Membership_switch(service, object_id, data, err)
-
+		return MembershipSwitch(service, objectId, data)
 	case "training":
-		Training_switch(service, object_id, data, err)
+		return TrainingSwitch(service, objectId, data)
 	}
+
+	return "", fmt.Errorf("application not found")
 }
 
-func IAAS_switch(service string, object_id string, data []byte, err error) {
-
+func IaasSwitch(service string, objectId string, data []byte) (string, error) {
+	var err error
 	switch service {
-
 	case "allocation":
-		if object_id == "" {
-			allocation_instance := ALLOCATION{}
-			err = json.Unmarshal(data, &allocation_instance)
-			fmt.Println(allocation_instance.Content[0])
-		} else {
-			allocation_instance := ALLOCATION_SPECIFIC{}
-			err = json.Unmarshal(data, &allocation_instance)
-			fmt.Println(allocation_instance.Content)
+		if objectId == "" {
+			allocationInstance := Allocation{}
+			err = json.Unmarshal(data, &allocationInstance)
+			return fmt.Sprint(allocationInstance.Content[0]), err
 		}
 
+		allocationInstance := AllocationSpecific{}
+		err = json.Unmarshal(data, &allocationInstance)
+		return fmt.Sprint(allocationInstance.Content), err
+
 	case "app_settings":
-		app_settings_instance := APP_SETTINGS_SPECIFIC{}
-		err = json.Unmarshal(data, &app_settings_instance)
-		fmt.Println(app_settings_instance.Content)
+		appSettingsInstance := AppSettingsSpecific{}
+		err = json.Unmarshal(data, &appSettingsInstance)
+		return fmt.Sprint(appSettingsInstance.Content), err
 
 	case "asn":
-		if object_id == "" {
-			asn_instance := ASN{}
-			err = json.Unmarshal(data, &asn_instance)
-			fmt.Println(asn_instance.Content[0])
-		} else {
-			asn_instance := ASN_SPECIFIC{}
-			err = json.Unmarshal(data, &asn_instance)
-			fmt.Println(asn_instance.Content)
+		if objectId == "" {
+			asnInstance := Asn{}
+			err = json.Unmarshal(data, &asnInstance)
+			return fmt.Sprint(asnInstance.Content[0]), err
 		}
+
+		asnInstance := AsnSpecific{}
+		err = json.Unmarshal(data, &asnInstance)
+		return fmt.Sprint(asnInstance.Content), err
 
 	case "cix_blacklist":
-		if object_id == "" {
-			cix_blacklist_instance := CIX_BLACKLIST{}
-			err = json.Unmarshal(data, &cix_blacklist_instance)
-			fmt.Println(cix_blacklist_instance.Content[0])
-		} else {
-			cix_blacklist_instance := CIX_BLACKLIST{}
-			err = json.Unmarshal(data, &cix_blacklist_instance)
-			fmt.Println(cix_blacklist_instance.Content)
+		if objectId == "" {
+			cixBlacklistInstance := CixBlacklist{}
+			err = json.Unmarshal(data, &cixBlacklistInstance)
+			return fmt.Sprint(cixBlacklistInstance.Content[0]), err
 		}
+
+		cixBlacklistInstance := CixBlacklistSpecific{}
+		err = json.Unmarshal(data, &cixBlacklistInstance)
+		return fmt.Sprint(cixBlacklistInstance.Content), err
 
 	case "cix_whitelist":
-		if object_id == "" {
-			cix_whitelist_instance := CIX_WHITELIST{}
-			err = json.Unmarshal(data, &cix_whitelist_instance)
-			fmt.Println(cix_whitelist_instance.Content[0])
-		} else {
-			cix_whitelist_instance := CIX_WHITELIST_SPECIFIC{}
-			err = json.Unmarshal(data, &cix_whitelist_instance)
-			fmt.Println(cix_whitelist_instance.Content)
+		if objectId == "" {
+			cixWhitelistInstance := CixWhitelist{}
+			err = json.Unmarshal(data, &cixWhitelistInstance)
+			return fmt.Sprint(cixWhitelistInstance.Content[0]), err
 		}
+
+		cixWhitelistInstance := CixWhitelistSpecific{}
+		err = json.Unmarshal(data, &cixWhitelistInstance)
+		return fmt.Sprint(cixWhitelistInstance.Content), err
 
 	case "cloud":
-		cloud_instance := CLOUD{}
-		err = json.Unmarshal(data, &cloud_instance)
-		fmt.Println(cloud_instance.Content)
+		cloudInstance := Cloud{}
+		err = json.Unmarshal(data, &cloudInstance)
+		return fmt.Sprint(cloudInstance.Content), err
 
 	case "domain":
-		if object_id == "" {
-			domain_instance := DOMAIN{}
-			err = json.Unmarshal(data, &domain_instance)
-			fmt.Println(domain_instance.Content[0])
-		} else {
-			domain_instance := DOMAIN_SPECIFIC{}
-			err = json.Unmarshal(data, &domain_instance)
-			fmt.Println(domain_instance.Content)
+		if objectId == "" {
+			domainInstance := Domain{}
+			err = json.Unmarshal(data, &domainInstance)
+			return fmt.Sprint(domainInstance.Content[0]), err
 		}
+
+		domainInstance := DomainSpecific{}
+		err = json.Unmarshal(data, &domainInstance)
+		return fmt.Sprint(domainInstance.Content), err
 
 	case "image":
-		if object_id == "" {
-			image_instance := IMAGE{}
-			err = json.Unmarshal(data, &image_instance)
-			fmt.Println(image_instance.Content[0])
-		} else {
-			image_instance := IMAGE_SPECIFIC{}
-			err = json.Unmarshal(data, &image_instance)
-			fmt.Println(image_instance.Content)
+		if objectId == "" {
+			imageInstance := Image{}
+			err = json.Unmarshal(data, &imageInstance)
+			return fmt.Sprint(imageInstance.Content[0]), err
 		}
+
+		imageInstance := ImageSpecific{}
+		err = json.Unmarshal(data, &imageInstance)
+		return fmt.Sprint(imageInstance.Content), err
 
 	case "interface":
-		if object_id == "" {
-			interface_instance := INTERFACE{}
-			err = json.Unmarshal(data, &interface_instance)
-			fmt.Println(interface_instance.Content[0])
-		} else {
-			interface_instance := INTERFACE_SPECIFIC{}
-			err = json.Unmarshal(data, &interface_instance)
-			fmt.Println(interface_instance.Content)
+		if objectId == "" {
+			interfaceInstance := Interface{}
+			err = json.Unmarshal(data, &interfaceInstance)
+			return fmt.Sprint(interfaceInstance.Content[0]), err
 		}
+
+		interfaceInstance := InterfaceSpecific{}
+		err = json.Unmarshal(data, &interfaceInstance)
+		return fmt.Sprint(interfaceInstance.Content), err
 
 	case "ip_address":
-		if object_id == "" {
-			ip_address_instance := IP_ADDRESS{}
-			err = json.Unmarshal(data, &ip_address_instance)
-			fmt.Println(ip_address_instance.Content[0])
-		} else {
-			ip_address_instance := IP_ADDRESS_SPECIFIC{}
-			err = json.Unmarshal(data, &ip_address_instance)
-			fmt.Println(ip_address_instance.Content)
+		if objectId == "" {
+			ipAddressInstance := IpAddress{}
+			err = json.Unmarshal(data, &ipAddressInstance)
+			return fmt.Sprint(ipAddressInstance.Content[0]), err
 		}
+
+		ipAddressInstance := IpAddressSpecific{}
+		err = json.Unmarshal(data, &ipAddressInstance)
+		return fmt.Sprint(ipAddressInstance.Content), err
 
 	case "ipmi":
-		if object_id == "" {
-			ipmi_instance := IPMI{}
-			err = json.Unmarshal(data, &ipmi_instance)
-			fmt.Println(ipmi_instance.Content[0])
-		} else {
-			ipmi_instance := IPMI_SPECIFIC{}
-			err = json.Unmarshal(data, &ipmi_instance)
-			fmt.Println(ipmi_instance.Content)
+		if objectId == "" {
+			ipmiInstance := Ipmi{}
+			err = json.Unmarshal(data, &ipmiInstance)
+			return fmt.Sprint(ipmiInstance.Content[0]), err
 		}
+
+		ipmiInstance := IpmiSpecific{}
+		err = json.Unmarshal(data, &ipmiInstance)
+		return fmt.Sprint(ipmiInstance.Content), err
 
 	case "policy_log":
-		if object_id == "" {
-			fmt.Println("Invalid URL for policy log.")
-		} else {
-			policy_log_instance := POLICY_LOG{}
-			err = json.Unmarshal(data, &policy_log_instance)
-			fmt.Println(policy_log_instance.Content)
+		if objectId == "" {
+			return "", fmt.Errorf("Invalid URL for policy log.")
 		}
+
+		policy_logInstance := PolicyLog{}
+		err = json.Unmarshal(data, &policy_logInstance)
+		return fmt.Sprint(policy_logInstance.Content), err
 
 	case "pool_ip":
-		if object_id == "" {
-			pool_ip_instance := POOL_IP{}
-			err = json.Unmarshal(data, &pool_ip_instance)
-			fmt.Println(pool_ip_instance.Content[0])
-		} else {
-			pool_ip_instance := POOL_IP_SPECIFIC{}
-			err = json.Unmarshal(data, &pool_ip_instance)
-			fmt.Println(pool_ip_instance.Content)
+		if objectId == "" {
+			poolIpInstance := PoolIp{}
+			err = json.Unmarshal(data, &poolIpInstance)
+			return fmt.Sprint(poolIpInstance.Content[0]), err
 		}
+
+		poolIpInstance := PoolIpSpecific{}
+		err = json.Unmarshal(data, &poolIpInstance)
+		return fmt.Sprint(poolIpInstance.Content), err
 
 	case "project":
-		if object_id == "" {
-			project_instance := PROJECT{}
-			err = json.Unmarshal(data, &project_instance)
-			fmt.Println(project_instance.Content[0])
-		} else {
-			project_instance := PROJECT_SPECIFIC{}
-			err = json.Unmarshal(data, &project_instance)
-			fmt.Println(project_instance.Content)
+		if objectId == "" {
+			projectInstance := Project{}
+			err = json.Unmarshal(data, &projectInstance)
+			return fmt.Sprint(projectInstance.Content[0]), err
 		}
+
+		projectInstance := ProjectSpecific{}
+		err = json.Unmarshal(data, &projectInstance)
+		return fmt.Sprint(projectInstance.Content), err
 
 	case "ptr_record":
-		if object_id == "" {
-			ptr_record_instance := PTR_RECORD{}
-			err = json.Unmarshal(data, &ptr_record_instance)
-			fmt.Println(ptr_record_instance.Content[0])
-		} else {
-			ptr_record_instance := PTR_RECORD_SPECIFIC{}
-			err = json.Unmarshal(data, &ptr_record_instance)
-			fmt.Println(ptr_record_instance.Content)
+		if objectId == "" {
+			ptrRecordInstance := PtrRecord{}
+			err = json.Unmarshal(data, &ptrRecordInstance)
+			return fmt.Sprint(ptrRecordInstance.Content[0]), err
 		}
+
+		ptrRecordInstance := PtrRecordSpecific{}
+		err = json.Unmarshal(data, &ptrRecordInstance)
+		return fmt.Sprint(ptrRecordInstance.Content), err
 
 	case "record":
-		if object_id == "" {
-			record_instance := RECORD{}
-			err = json.Unmarshal(data, &record_instance)
-			fmt.Println(record_instance.Content[0])
-		} else {
-			record_instance := RECORD_SPECIFIC{}
-			err = json.Unmarshal(data, &record_instance)
-			fmt.Println(record_instance.Content)
+		if objectId == "" {
+			recordInstance := Record{}
+			err = json.Unmarshal(data, &recordInstance)
+			return fmt.Sprint(recordInstance.Content[0]), err
 		}
+
+		recordInstance := RecordSpecific{}
+		err = json.Unmarshal(data, &recordInstance)
+		return fmt.Sprint(recordInstance.Content), err
 
 	case "router":
-		if object_id == "" {
-			router_instance := ROUTER{}
-			err = json.Unmarshal(data, &router_instance)
-			fmt.Println(router_instance.Content[0])
-		} else {
-			router_instance := ROUTER_SPECIFIC{}
-			err = json.Unmarshal(data, &router_instance)
-			fmt.Println(router_instance.Content)
+		if objectId == "" {
+			routerInstance := Router{}
+			err = json.Unmarshal(data, &routerInstance)
+			return fmt.Sprint(routerInstance.Content[0]), err
 		}
+
+		routerInstance := RouterSpecific{}
+		err = json.Unmarshal(data, &routerInstance)
+		return fmt.Sprint(routerInstance.Content), err
 
 	case "server":
-		if object_id == "" {
-			server_instance := SERVER{}
-			err = json.Unmarshal(data, &server_instance)
-			fmt.Println(server_instance.Content[0])
-		} else {
-			server_instance := SERVER_SPECIFIC{}
-			err = json.Unmarshal(data, &server_instance)
-			fmt.Println(server_instance.Content)
+		if objectId == "" {
+			serverInstance := Server{}
+			err = json.Unmarshal(data, &serverInstance)
+			return fmt.Sprint(serverInstance.Content[0]), err
 		}
+
+		serverInstance := ServerSpecific{}
+		err = json.Unmarshal(data, &serverInstance)
+		return fmt.Sprint(serverInstance.Content), err
 
 	case "server_type":
-		if object_id == "" {
-			server_type_instance := SERVER_TYPE{}
-			err = json.Unmarshal(data, &server_type_instance)
-			fmt.Println(server_type_instance.Content[0])
-		} else {
-			server_type_instance := SERVER_TYPE_SPECIFIC{}
-			err = json.Unmarshal(data, &server_type_instance)
-			fmt.Println(server_type_instance.Content)
+		if objectId == "" {
+			serverTypeInstance := ServerType{}
+			err = json.Unmarshal(data, &serverTypeInstance)
+			return fmt.Sprint(serverTypeInstance.Content[0]), err
 		}
+
+		serverTypeInstance := ServerTypeSpecific{}
+		err = json.Unmarshal(data, &serverTypeInstance)
+		return fmt.Sprint(serverTypeInstance.Content), err
 
 	case "storage_type":
-		if object_id == "" {
-			storage_type_instance := STORAGE_TYPE{}
-			err = json.Unmarshal(data, &storage_type_instance)
-			fmt.Println(storage_type_instance.Content[0])
-		} else {
-			storage_type_instance := STORAGE_TYPE_SPECIFIC{}
-			err = json.Unmarshal(data, &storage_type_instance)
-			fmt.Println(storage_type_instance.Content)
+		if objectId == "" {
+			storageTypeInstance := StorageType{}
+			err = json.Unmarshal(data, &storageTypeInstance)
+			return fmt.Sprint(storageTypeInstance.Content[0]), err
 		}
+
+		storageTypeInstance := StorageTypeSpecific{}
+		err = json.Unmarshal(data, &storageTypeInstance)
+		return fmt.Sprint(storageTypeInstance.Content), err
 
 	case "subnet":
-		if object_id == "" {
-			subnet_instance := SUBNET{}
-			err = json.Unmarshal(data, &subnet_instance)
-			fmt.Println(subnet_instance.Content[0])
-		} else {
-			subnet_instance := SUBNET_SPECIFIC{}
-			err = json.Unmarshal(data, &subnet_instance)
-			fmt.Println(subnet_instance.Content)
+		if objectId == "" {
+			subnetInstance := Subnet{}
+			err = json.Unmarshal(data, &subnetInstance)
+			return fmt.Sprint(subnetInstance.Content[0]), err
 		}
+
+		subnetInstance := SubnetSpecific{}
+		err = json.Unmarshal(data, &subnetInstance)
+		return fmt.Sprint(subnetInstance.Content), err
 
 	case "subnet_space":
-		if object_id == "" {
-			fmt.Println("Invalid URL for subnet space.")
-
-		} else {
-			subnet_space_instance := SUBNET_SPACE{}
-			err = json.Unmarshal(data, &subnet_space_instance)
-			fmt.Println(subnet_space_instance.Content)
+		if objectId == "" {
+			return "", fmt.Errorf("Invalid URL for subnet space.")
 		}
+
+		subnetSpaceInstance := SubnetSpace{}
+		err = json.Unmarshal(data, &subnetSpaceInstance)
+		return fmt.Sprint(subnetSpaceInstance.Content), err
 
 	case "virtual_router":
-		if object_id == "" {
-			virtual_router_instance := VIRTUAL_ROUTER{}
-			err = json.Unmarshal(data, &virtual_router_instance)
-			fmt.Println(virtual_router_instance.Content[0])
-		} else {
-			virtual_router_instance := VIRTUAL_ROUTER_SPECIFIC{}
-			err = json.Unmarshal(data, &virtual_router_instance)
-			fmt.Println(virtual_router_instance.Content)
+		if objectId == "" {
+			virtualRouterInstance := VirtualRouter{}
+			err = json.Unmarshal(data, &virtualRouterInstance)
+			return fmt.Sprint(virtualRouterInstance.Content[0]), err
 		}
+
+		virtualRouterInstance := VirtualRouterSpecific{}
+		err = json.Unmarshal(data, &virtualRouterInstance)
+		return fmt.Sprint(virtualRouterInstance.Content), err
 
 	case "vm":
-		if object_id == "" {
-			vm_instance := VM{}
-			err = json.Unmarshal(data, &vm_instance)
-			fmt.Println(vm_instance.Content[0])
-		} else {
-			vm_instance := VM_SPECIFIC{}
-			err = json.Unmarshal(data, &vm_instance)
-			fmt.Println(vm_instance.Content)
+		if objectId == "" {
+			vmInstance := Vm{}
+			err = json.Unmarshal(data, &vmInstance)
+			return fmt.Sprint(vmInstance.Content[0]), err
 		}
+
+		vmInstance := VmSpecific{}
+		err = json.Unmarshal(data, &vmInstance)
+		return fmt.Sprint(vmInstance.Content), err
 
 	case "vpn":
-		if object_id == "" {
-			vpn_instance := VPN{}
-			err = json.Unmarshal(data, &vpn_instance)
-			fmt.Println(vpn_instance.Content[0])
-		} else {
-			vpn_instance := VPN_SPECIFIC{}
-			err = json.Unmarshal(data, &vpn_instance)
-			fmt.Println(vpn_instance.Content)
+		if objectId == "" {
+			vpnInstance := Vpn{}
+			err = json.Unmarshal(data, &vpnInstance)
+			return fmt.Sprint(vpnInstance.Content[0]), err
 		}
+
+		vpnInstance := VpnSpecific{}
+		err = json.Unmarshal(data, &vpnInstance)
+		return fmt.Sprint(vpnInstance.Content), err
 	}
+
+	return "", fmt.Errorf("IAAS service not found")
 }
 
-func Membership_switch(service string, object_id string, data []byte, err error) {
+func MembershipSwitch(service string, objectId string, data []byte) (string, error) {
+	var err error
+
 	switch service {
 	case "address":
-		address_instance := ADDRESS{}
-		err = json.Unmarshal(data, &address_instance)
-		fmt.Println(address_instance.Content[0])
+		addressInstance := Address{}
+		err = json.Unmarshal(data, &addressInstance)
+		return fmt.Sprint(addressInstance.Content[0]), err
 
 	case "app_settings":
-		app_settings_instance := APP_SETTINGS{}
-		err = json.Unmarshal(data, &app_settings_instance)
-		fmt.Println(app_settings_instance.Content)
+		appSettingsInstance := AppSettings{}
+		err = json.Unmarshal(data, &appSettingsInstance)
+		return fmt.Sprint(appSettingsInstance.Content), err
 
 	case "country":
-		if object_id == "" {
-			country_instance := COUNTRY{}
-			err = json.Unmarshal(data, &country_instance)
-			fmt.Println(country_instance.Content[0])
-		} else {
-			country_instance := COUNTRY_SPECIFIC{}
-			err = json.Unmarshal(data, &country_instance)
-			fmt.Println(country_instance.Content)
+		if objectId == "" {
+			countryInstance := Country{}
+			err = json.Unmarshal(data, &countryInstance)
+			return fmt.Sprint(countryInstance.Content[0]), err
 		}
+
+		countryInstance := CountrySpecific{}
+		err = json.Unmarshal(data, &countryInstance)
+		return fmt.Sprint(countryInstance.Content), err
 
 	case "currency":
-		if object_id == "" {
-			currency_instance := CURRENCY{}
-			err = json.Unmarshal(data, &currency_instance)
-			fmt.Println(currency_instance.Content[0])
-		} else {
-			currency_instance := CURRENCY_SPECIFIC{}
-			err = json.Unmarshal(data, &currency_instance)
-			fmt.Println(currency_instance.Content)
+		if objectId == "" {
+			currencyInstance := Currency{}
+			err = json.Unmarshal(data, &currencyInstance)
+			return fmt.Sprint(currencyInstance.Content[0]), err
 		}
+
+		currencyInstance := CurrencySpecific{}
+		err = json.Unmarshal(data, &currencyInstance)
+		return fmt.Sprint(currencyInstance.Content), err
 
 	case "department":
-		if object_id == "" {
-			department_instance := DEPARTMENT{}
-			err = json.Unmarshal(data, &department_instance)
-			fmt.Println(department_instance.Content[0])
-		} else {
-			department_instance := DEPARTMENT_SPECIFIC{}
-			err = json.Unmarshal(data, &department_instance)
-			fmt.Println(department_instance.Content)
+		if objectId == "" {
+			departmentInstance := Department{}
+			err = json.Unmarshal(data, &departmentInstance)
+			return fmt.Sprint(departmentInstance.Content[0]), err
 		}
+
+		departmentInstance := DepartmentSpecific{}
+		err = json.Unmarshal(data, &departmentInstance)
+		return fmt.Sprint(departmentInstance.Content), err
 
 	case "email_confirmation":
-		email_instance := EMAIL_CONFIRMED{}
-		err = json.Unmarshal(data, &email_instance)
-		fmt.Println(email_instance.Content)
+		emailInstance := EmailConfirmed{}
+		err = json.Unmarshal(data, &emailInstance)
+		return fmt.Sprint(emailInstance.Content), err
 
 	case "language":
-		if object_id == "" {
-			language_instance := LANGUAGE{}
-			err = json.Unmarshal(data, &language_instance)
-			fmt.Println(language_instance.Content[0])
-		} else {
-			language_instance := LANGUAGE_SPECIFIC{}
-			err = json.Unmarshal(data, &language_instance)
-			fmt.Println(language_instance.Content)
+		if objectId == "" {
+			languageInstance := Language{}
+			err = json.Unmarshal(data, &languageInstance)
+			return fmt.Sprint(languageInstance.Content[0]), err
 		}
+
+		languageInstance := LanguageSpecific{}
+		err = json.Unmarshal(data, &languageInstance)
+		return fmt.Sprint(languageInstance.Content), err
 
 	case "member":
-		if object_id == "" {
-			member_instance := MEMBER{}
-			err = json.Unmarshal(data, &member_instance)
-			fmt.Println(member_instance.Content[0])
-		} else {
-			member_instance := MEMBER_SPECIFIC{}
-			err = json.Unmarshal(data, &member_instance)
-			fmt.Println(member_instance.Content)
+		if objectId == "" {
+			memberInstance := Member{}
+			err = json.Unmarshal(data, &memberInstance)
+			return fmt.Sprint(memberInstance.Content[0]), err
 		}
+
+		memberInstance := MemberSpecific{}
+		err = json.Unmarshal(data, &memberInstance)
+		return fmt.Sprint(memberInstance.Content), err
 
 	case "profile":
-		if object_id == "" {
-			profile_instance := PROFILE{}
-			err = json.Unmarshal(data, &profile_instance)
-			fmt.Println(profile_instance.Content[0])
-		} else {
-			profile_instance := PROFILE_SPECIFIC{}
-			err = json.Unmarshal(data, &profile_instance)
-			fmt.Println(profile_instance.Content)
+		if objectId == "" {
+			profileInstance := Profile{}
+			err = json.Unmarshal(data, &profileInstance)
+			return fmt.Sprint(profileInstance.Content[0]), err
 		}
+
+		profileInstance := ProfileSpecific{}
+		err = json.Unmarshal(data, &profileInstance)
+		return fmt.Sprint(profileInstance.Content), err
 
 	case "team":
-		if object_id == "" {
-			team_instance := TEAM{}
-			err = json.Unmarshal(data, &team_instance)
-			fmt.Println(team_instance.Content[0])
-		} else {
-			team_instance := TEAM_SPECIFIC{}
-			err = json.Unmarshal(data, &team_instance)
-			fmt.Println(team_instance.Content)
+		if objectId == "" {
+			teamInstance := Team{}
+			err = json.Unmarshal(data, &teamInstance)
+			return fmt.Sprint(teamInstance.Content[0]), err
 		}
+
+		teamInstance := TeamSpecific{}
+		err = json.Unmarshal(data, &teamInstance)
+		return fmt.Sprint(teamInstance.Content), err
 
 	case "territory":
-		if object_id == "" {
-			territory_instance := TERRITORY{}
-			err = json.Unmarshal(data, &territory_instance)
-			fmt.Println(territory_instance.Content[0])
-		} else {
-			territory_instance := TERRITORY_SPECIFIC{}
-			err = json.Unmarshal(data, &territory_instance)
-			fmt.Println(territory_instance.Content)
+		if objectId == "" {
+			territoryInstance := Territory{}
+			err = json.Unmarshal(data, &territoryInstance)
+			return fmt.Sprint(territoryInstance.Content[0]), err
 		}
 
+		territoryInstance := TerritorySpecific{}
+		err = json.Unmarshal(data, &territoryInstance)
+		return fmt.Sprint(territoryInstance.Content), err
+
 	case "transaction_type":
-		if object_id == "" {
-			transaction_type_instance := TRANSACTION_TYPE{}
-			err = json.Unmarshal(data, &transaction_type_instance)
-			fmt.Println(transaction_type_instance.Content[0])
+		if objectId == "" {
+			transactionTypeInstance := TransactionType{}
+			err = json.Unmarshal(data, &transactionTypeInstance)
+			return fmt.Sprint(transactionTypeInstance.Content[0]), err
 		} else {
-			transaction_type_instance := TRANSACTION_TYPE_SPECIFIC{}
-			err = json.Unmarshal(data, &transaction_type_instance)
-			fmt.Println(transaction_type_instance.Content)
+			transactionTypeInstance := TranscationTypeSpecific{}
+			err = json.Unmarshal(data, &transactionTypeInstance)
+			return fmt.Sprint(transactionTypeInstance.Content), err
 		}
 
 	case "user":
-		if object_id == "" {
-			user_instance := USER{}
-			err = json.Unmarshal(data, &user_instance)
-			fmt.Println(user_instance.Content[0])
-		} else {
-			user_instance := USER_SPECIFIC{}
-			err = json.Unmarshal(data, &user_instance)
-			fmt.Println(user_instance.Content)
+		if objectId == "" {
+			userInstance := User{}
+			err = json.Unmarshal(data, &userInstance)
+			return fmt.Sprint(userInstance.Content[0]), err
 		}
+
+		userInstance := UserSpecific{}
+		err = json.Unmarshal(data, &userInstance)
+		return fmt.Sprint(userInstance.Content), err
 	}
+
+	return "", fmt.Errorf("Membership service not found")
 }
 
-func Training_switch(service string, object_id string, data []byte, err error) {
+func TrainingSwitch(service string, objectId string, data []byte) (string, error) {
+	var err error
+
 	switch service {
 	case "class":
-		if object_id == "" {
-			class_instance := CLASS{}
-			err = json.Unmarshal(data, &class_instance)
-			fmt.Println(class_instance.Content[0])
-		} else {
-			class_instance := CLASS_SPECIFIC{}
-			err = json.Unmarshal(data, &class_instance)
-			fmt.Println(class_instance.Content)
+		if objectId == "" {
+			classInstance := Class{}
+			err = json.Unmarshal(data, &classInstance)
+			return fmt.Sprint(classInstance.Content[0]), err
 		}
+
+		classInstance := ClassSpecific{}
+		err = json.Unmarshal(data, &classInstance)
+		return fmt.Sprint(classInstance.Content), err
 
 	case "student":
-		if object_id == "" {
-			student_instance := STUDENT{}
-			err = json.Unmarshal(data, &student_instance)
-			fmt.Println(student_instance.Content[0])
-		} else {
-			student_instance := STUDENT_SPECIFIC{}
-			err = json.Unmarshal(data, &student_instance)
-			fmt.Println(student_instance.Content)
+		if objectId == "" {
+			studentInstance := Student{}
+			err = json.Unmarshal(data, &studentInstance)
+			return fmt.Sprint(studentInstance.Content[0]), err
 		}
 
+		studentInstance := StudentSpecific{}
+		err = json.Unmarshal(data, &studentInstance)
+		return fmt.Sprint(studentInstance.Content), err
+
 	case "syllabus":
-		if object_id == "" {
-			syllabus_instance := SYLLABUS{}
-			err = json.Unmarshal(data, &syllabus_instance)
-			fmt.Println(syllabus_instance.Content[0])
-		} else {
-			syllabus_instance := SYLLABUS_SPECIFIC{}
-			err = json.Unmarshal(data, &syllabus_instance)
-			fmt.Println(syllabus_instance.Content)
+		if objectId == "" {
+			syllabusInstance := Syllabus{}
+			err = json.Unmarshal(data, &syllabusInstance)
+			return fmt.Sprint(syllabusInstance.Content[0]), err
 		}
+
+		syllabusInstance := SyllabusSpecific{}
+		err = json.Unmarshal(data, &syllabusInstance)
+		return fmt.Sprint(syllabusInstance.Content), err
 	}
+
+	return "", fmt.Errorf("Training service not found")
 }

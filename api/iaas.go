@@ -1,6 +1,6 @@
 package api
 
-type ALLOCATION struct {
+type Allocation struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -30,7 +30,7 @@ type ALLOCATION struct {
 	} `json:"content"`
 }
 
-type ALLOCATION_SPECIFIC struct {
+type AllocationSpecific struct {
 	Content struct {
 		AddressID    int    `json:"address_id"`
 		AddressRange string `json:"address_range"`
@@ -53,7 +53,7 @@ type ALLOCATION_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type APP_SETTINGS_SPECIFIC struct {
+type AppSettingsSpecific struct {
 	Content struct {
 		Created         string `json:"created"`
 		ID              int    `json:"id"`
@@ -67,7 +67,7 @@ type APP_SETTINGS_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type ASN struct {
+type Asn struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -86,7 +86,7 @@ type ASN struct {
 	} `json:"content"`
 }
 
-type ASN_SPECIFIC struct {
+type AsnSpecific struct {
 	Content struct {
 		AllocationsInUse int    `json:"allocations_in_use"`
 		Created          string `json:"created"`
@@ -98,7 +98,7 @@ type ASN_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type CIX_BLACKLIST struct {
+type CixBlacklist struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -116,7 +116,7 @@ type CIX_BLACKLIST struct {
 	} `json:"content"`
 }
 
-type CIX_BLACKLIST_SPECIFIC struct {
+type CixBlacklistSpecific struct {
 	Content struct {
 		Cidr       string `json:"cidr"`
 		Comment    string `json:"comment"`
@@ -127,7 +127,7 @@ type CIX_BLACKLIST_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type CIX_WHITELIST struct {
+type CixWhitelist struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -145,7 +145,7 @@ type CIX_WHITELIST struct {
 	} `json:"content"`
 }
 
-type CIX_WHITELIST_SPECIFIC struct {
+type CixWhitelistSpecific struct {
 	Content struct {
 		Cidr       string `json:"cidr"`
 		Comment    string `json:"comment"`
@@ -156,7 +156,7 @@ type CIX_WHITELIST_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type CLOUD struct {
+type Cloud struct {
 	Content struct {
 		Project struct {
 			AddressID       int    `json:"address_id"`
@@ -807,7 +807,7 @@ type CLOUD struct {
 	} `json:"content"`
 }
 
-type DOMAIN struct {
+type Domain struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -826,7 +826,7 @@ type DOMAIN struct {
 	} `json:"content"`
 }
 
-type DOMAIN_SPECIFIC struct {
+type DomainSpecific struct {
 	Content struct {
 		Created    string `json:"created"`
 		ID         int    `json:"id"`
@@ -838,7 +838,7 @@ type DOMAIN_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type IMAGE struct {
+type Image struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -860,7 +860,7 @@ type IMAGE struct {
 	} `json:"content"`
 }
 
-type IMAGE_SPECIFIC struct {
+type ImageSpecific struct {
 	Content struct {
 		AnswerFileName string `json:"answer_file_name"`
 		Created        string `json:"created"`
@@ -875,7 +875,7 @@ type IMAGE_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type INTERFACE struct {
+type Interface struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -897,7 +897,7 @@ type INTERFACE struct {
 	} `json:"content"`
 }
 
-type INTERFACE_SPECIFIC struct {
+type InterfaceSpecific struct {
 	Content struct {
 		Created    string `json:"created"`
 		Details    string `json:"details"`
@@ -912,7 +912,7 @@ type INTERFACE_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type IP_ADDRESS struct {
+type IpAddress struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1049,7 +1049,7 @@ type IP_ADDRESS struct {
 	} `json:"content"`
 }
 
-type IP_ADDRESS_SPECIFIC struct {
+type IpAddressSpecific struct {
 	Content struct {
 		Address     string `json:"address"`
 		Cloud       bool   `json:"cloud"`
@@ -1179,7 +1179,7 @@ type IP_ADDRESS_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type IPMI struct {
+type Ipmi struct {
 	Content []struct {
 		ClientIP   string `json:"client_ip"`
 		Created    string `json:"created"`
@@ -1260,7 +1260,7 @@ type IPMI struct {
 	} `json:"_metadata"`
 }
 
-type IPMI_SPECIFIC struct {
+type IpmiSpecific struct {
 	Content struct {
 		ClientIP   string `json:"client_ip"`
 		Created    string `json:"created"`
@@ -1409,7 +1409,7 @@ type IPMI_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type POLICY_LOG struct {
+type PolicyLog struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1428,7 +1428,7 @@ type POLICY_LOG struct {
 	} `json:"content"`
 }
 
-type POOL_IP struct {
+type PoolIp struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1447,7 +1447,7 @@ type POOL_IP struct {
 	} `json:"content"`
 }
 
-type POOL_IP_SPECIFIC struct {
+type PoolIpSpecific struct {
 	Content struct {
 		Created    string `json:"created"`
 		Domain     string `json:"domain"`
@@ -1459,7 +1459,7 @@ type POOL_IP_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type PROJECT struct {
+type Project struct {
 	Content []struct {
 		AddressID       int    `json:"address_id"`
 		Closed          bool   `json:"closed"`
@@ -1485,7 +1485,7 @@ type PROJECT struct {
 	} `json:"_metadata"`
 }
 
-type PROJECT_SPECIFIC struct {
+type ProjectSpecific struct {
 	Content struct {
 		AddressID       int    `json:"address_id"`
 		Closed          bool   `json:"closed"`
@@ -1504,7 +1504,7 @@ type PROJECT_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type PTR_RECORD struct {
+type PtrRecord struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1540,7 +1540,7 @@ type PTR_RECORD struct {
 	} `json:"content"`
 }
 
-type PTR_RECORD_SPECIFIC struct {
+type PtrRecordSpecific struct {
 	Content struct {
 		Content string `json:"content"`
 		Created string `json:"created"`
@@ -1569,7 +1569,7 @@ type PTR_RECORD_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type RECORD struct {
+type Record struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1605,7 +1605,7 @@ type RECORD struct {
 	} `json:"content"`
 }
 
-type RECORD_SPECIFIC struct {
+type RecordSpecific struct {
 	Content struct {
 		Content string `json:"content"`
 		Created string `json:"created"`
@@ -1634,7 +1634,7 @@ type RECORD_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type ROUTER struct {
+type Router struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1666,7 +1666,7 @@ type ROUTER struct {
 	} `json:"content"`
 }
 
-type ROUTER_SPECIFIC struct {
+type RouterSpecific struct {
 	Content struct {
 		AssetTag            int      `json:"asset_tag"`
 		Capacity            int      `json:"capacity"`
@@ -1691,7 +1691,7 @@ type ROUTER_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type SERVER struct {
+type Server struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1742,7 +1742,7 @@ type SERVER struct {
 	} `json:"content"`
 }
 
-type SERVER_SPECIFIC struct {
+type ServerSpecific struct {
 	Content struct {
 		AssetTag   int    `json:"asset_tag"`
 		Cores      int    `json:"cores"`
@@ -1786,7 +1786,7 @@ type SERVER_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type SERVER_TYPE struct {
+type ServerType struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1803,7 +1803,7 @@ type SERVER_TYPE struct {
 	} `json:"content"`
 }
 
-type SERVER_TYPE_SPECIFIC struct {
+type ServerTypeSpecific struct {
 	Content struct {
 		Created string `json:"created"`
 		ID      int    `json:"id"`
@@ -1813,7 +1813,7 @@ type SERVER_TYPE_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type STORAGE_TYPE struct {
+type StorageType struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1831,7 +1831,7 @@ type STORAGE_TYPE struct {
 	} `json:"content"`
 }
 
-type STORAGE_TYPE_SPECIFIC struct {
+type StorageTypeSpecific struct {
 	Content struct {
 		Created string `json:"created"`
 		ID      int    `json:"id"`
@@ -1842,7 +1842,7 @@ type STORAGE_TYPE_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type SUBNET struct {
+type Subnet struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1963,7 +1963,7 @@ type SUBNET struct {
 	} `json:"content"`
 }
 
-type SUBNET_SPACE struct {
+type SubnetSpace struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -1986,7 +1986,7 @@ type SUBNET_SPACE struct {
 	} `json:"content"`
 }
 
-type SUBNET_SPECIFIC struct {
+type SubnetSpecific struct {
 	Content struct {
 		AddressID    int    `json:"address_id"`
 		AddressRange string `json:"address_range"`
@@ -2100,7 +2100,7 @@ type SUBNET_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type VIRTUAL_ROUTER struct {
+type VirtualRouter struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -2285,7 +2285,7 @@ type VIRTUAL_ROUTER struct {
 	} `json:"content"`
 }
 
-type VIRTUAL_ROUTER_SPECIFIC struct {
+type VirtualRouterSpecific struct {
 	Content struct {
 		Created       string `json:"created"`
 		FirewallRules []struct {
@@ -2463,7 +2463,7 @@ type VIRTUAL_ROUTER_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type VM struct {
+type Vm struct {
 	Metadata struct {
 		Limit        int      `json:"limit"`
 		Order        string   `json:"order"`
@@ -2786,7 +2786,7 @@ type VM struct {
 	} `json:"content"`
 }
 
-type VM_SPECIFIC struct {
+type VmSpecific struct {
 	Content struct {
 		CPU           int      `json:"cpu"`
 		Created       string   `json:"created"`
@@ -3102,7 +3102,7 @@ type VM_SPECIFIC struct {
 	} `json:"content"`
 }
 
-type VPN struct {
+type Vpn struct {
 	Content []struct {
 		Created             string `json:"created"`
 		Description         string `json:"description"`
@@ -3181,7 +3181,7 @@ type VPN struct {
 	} `json:"_metadata"`
 }
 
-type VPN_SPECIFIC struct {
+type VpnSpecific struct {
 	Content struct {
 		CPU           int      `json:"cpu"`
 		Created       string   `json:"created"`
