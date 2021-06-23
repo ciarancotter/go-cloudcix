@@ -16,7 +16,7 @@ func (cix_client CloudCIX_Client) Get_Token() string {
 
 	json_data := map[string]string{"api_key": cix_client.Api_key, "email": cix_client.Email, "password": cix_client.Password}
 	json_value, _ := json.Marshal(json_data)
-	url := "https://membership.api.cloudcix.com/auth/login/"
+	url := "https://membership." + cix_client.API_URL + "/auth/login/"
 	response, err := http.Post(url, "application/json", bytes.NewBuffer(json_value))
 
 	if err != nil {
@@ -52,7 +52,7 @@ func (cix_client CloudCIX_Client) Read_Data(application string, service string, 
 
 func (cix_client CloudCIX_Client) Write_Data(application string, service string, object_id string, token string, data map[string]string, method string) {
 	client := http.Client{}
-	url := "https://" + application + ".api.cloudcix.com/" + service + "/" + object_id
+	url := "https://" + application + "." + cix_client.API_URL + "/" + service + "/" + object_id
 	post_data, _ := json.Marshal(data)
 	post_data_buffer := bytes.NewBuffer(post_data)
 	request, _ := http.NewRequest(method, url, post_data_buffer)
@@ -69,7 +69,7 @@ func (cix_client CloudCIX_Client) Write_Data(application string, service string,
 
 func (cix_client CloudCIX_Client) Delete_Data(application string, service string, object_id string, token string) {
 	client := http.Client{}
-	url := "https://" + application + ".api.cloudcix.com/" + service + "/" + object_id
+	url := "https://" + application + "." + cix_client.API_URL + "/" + service + "/" + object_id
 	request, _ := http.NewRequest("DELETE", url, nil)
 	request.Header.Set("X-Auth-Token", token)
 	response, err := client.Do(request)
