@@ -1,3 +1,3 @@
-module github.com/CloudCIX/go-cloudcix
+module github.com/ciarancotter/go-cloudcix
 
 go 1.16
