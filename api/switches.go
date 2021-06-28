@@ -5,447 +5,576 @@ import (
 	"fmt"
 )
 
-func Application_switch(application string, service string, object_id string, data []byte, err error) {
+func ApplicationSwitch(application string, service string, objectId string, data []byte) (map[string]interface{}, error) {
 	switch application {
 	case "iaas":
-		IAAS_switch(service, object_id, data, err)
-
+		return IaasSwitch(service, objectId, data)
 	case "membership":
-		Membership_switch(service, object_id, data, err)
-
+		return MembershipSwitch(service, objectId, data)
 	case "training":
-		Training_switch(service, object_id, data, err)
+		return TrainingSwitch(service, objectId, data)
 	}
+
+	return nil, fmt.Errorf("application not found")
 }
 
-func IAAS_switch(service string, object_id string, data []byte, err error) {
-
+func IaasSwitch(service string, objectId string, data []byte) (map[string]interface{}, error) {
+	var err error
 	switch service {
-
 	case "allocation":
-		if object_id == "" {
-			allocation_instance := ALLOCATION{}
-			err = json.Unmarshal(data, &allocation_instance)
-			fmt.Println(allocation_instance.Content[0])
-		} else {
-			allocation_instance := ALLOCATION_SPECIFIC{}
-			err = json.Unmarshal(data, &allocation_instance)
-			fmt.Println(allocation_instance.Content)
+		if objectId == "" {
+			allocationInstance := Allocation{}
+			err = json.Unmarshal(data, &allocationInstance)
+			response := make(map[string]interface{})
+			response["allocation"] = allocationInstance.Content
+			return response, err
 		}
 
+		allocationInstance := AllocationSpecific{}
+		err = json.Unmarshal(data, &allocationInstance)
+		response := make(map[string]interface{})
+		response["allocation"] = allocationInstance.Content
+		return response, err
+
 	case "app_settings":
-		app_settings_instance := APP_SETTINGS_SPECIFIC{}
-		err = json.Unmarshal(data, &app_settings_instance)
-		fmt.Println(app_settings_instance.Content)
+		appSettingsInstance := AppSettingsSpecific{}
+		err = json.Unmarshal(data, &appSettingsInstance)
+		response := make(map[string]interface{})
+		response["app_settings"] = appSettingsInstance.Content
+		return response, err
 
 	case "asn":
-		if object_id == "" {
-			asn_instance := ASN{}
-			err = json.Unmarshal(data, &asn_instance)
-			fmt.Println(asn_instance.Content[0])
-		} else {
-			asn_instance := ASN_SPECIFIC{}
-			err = json.Unmarshal(data, &asn_instance)
-			fmt.Println(asn_instance.Content)
+		if objectId == "" {
+			asnInstance := Asn{}
+			err = json.Unmarshal(data, &asnInstance)
+			response := make(map[string]interface{})
+			response["asn"] = asnInstance.Content
+			return response, err
 		}
+
+		asnInstance := AsnSpecific{}
+		err = json.Unmarshal(data, &asnInstance)
+		response := make(map[string]interface{})
+		response["asn"] = asnInstance.Content
+		return response, err
 
 	case "cix_blacklist":
-		if object_id == "" {
-			cix_blacklist_instance := CIX_BLACKLIST{}
-			err = json.Unmarshal(data, &cix_blacklist_instance)
-			fmt.Println(cix_blacklist_instance.Content[0])
-		} else {
-			cix_blacklist_instance := CIX_BLACKLIST{}
-			err = json.Unmarshal(data, &cix_blacklist_instance)
-			fmt.Println(cix_blacklist_instance.Content)
+		if objectId == "" {
+			cixBlacklistInstance := CixBlacklist{}
+			err = json.Unmarshal(data, &cixBlacklistInstance)
+			response := make(map[string]interface{})
+			response["cix_blacklist"] = cixBlacklistInstance.Content
+			return response, err
 		}
 
+		cixBlacklistInstance := CixBlacklistSpecific{}
+		err = json.Unmarshal(data, &cixBlacklistInstance)
+		response := make(map[string]interface{})
+		response["cix_blacklist"] = cixBlacklistInstance.Content
+		return response, err
 	case "cix_whitelist":
-		if object_id == "" {
-			cix_whitelist_instance := CIX_WHITELIST{}
-			err = json.Unmarshal(data, &cix_whitelist_instance)
-			fmt.Println(cix_whitelist_instance.Content[0])
-		} else {
-			cix_whitelist_instance := CIX_WHITELIST_SPECIFIC{}
-			err = json.Unmarshal(data, &cix_whitelist_instance)
-			fmt.Println(cix_whitelist_instance.Content)
+		if objectId == "" {
+			cixWhitelistInstance := CixWhitelist{}
+			err = json.Unmarshal(data, &cixWhitelistInstance)
+			response := make(map[string]interface{})
+			response["cix_whitelist"] = cixWhitelistInstance.Content
+			return response, err
 		}
 
+		cixWhitelistInstance := CixWhitelistSpecific{}
+		err = json.Unmarshal(data, &cixWhitelistInstance)
+		response := make(map[string]interface{})
+		response["cix_whitelist"] = cixWhitelistInstance.Content
+		return response, err
 	case "cloud":
-		cloud_instance := CLOUD{}
-		err = json.Unmarshal(data, &cloud_instance)
-		fmt.Println(cloud_instance.Content)
-
+		cloudInstance := Cloud{}
+		err = json.Unmarshal(data, &cloudInstance)
+		response := make(map[string]interface{})
+		response["cloud"] = cloudInstance.Content
+		return response, err
 	case "domain":
-		if object_id == "" {
-			domain_instance := DOMAIN{}
-			err = json.Unmarshal(data, &domain_instance)
-			fmt.Println(domain_instance.Content[0])
-		} else {
-			domain_instance := DOMAIN_SPECIFIC{}
-			err = json.Unmarshal(data, &domain_instance)
-			fmt.Println(domain_instance.Content)
+		if objectId == "" {
+			domainInstance := Domain{}
+			err = json.Unmarshal(data, &domainInstance)
+			response := make(map[string]interface{})
+			response["domain"] = domainInstance.Content
+			return response, err
 		}
 
+		domainInstance := DomainSpecific{}
+		err = json.Unmarshal(data, &domainInstance)
+		response := make(map[string]interface{})
+		response["domain"] = domainInstance.Content
+		return response, err
 	case "image":
-		if object_id == "" {
-			image_instance := IMAGE{}
-			err = json.Unmarshal(data, &image_instance)
-			fmt.Println(image_instance.Content[0])
-		} else {
-			image_instance := IMAGE_SPECIFIC{}
-			err = json.Unmarshal(data, &image_instance)
-			fmt.Println(image_instance.Content)
+		if objectId == "" {
+			imageInstance := Image{}
+			err = json.Unmarshal(data, &imageInstance)
+			response := make(map[string]interface{})
+			response["image"] = imageInstance.Content
+			return response, err
 		}
 
+		imageInstance := ImageSpecific{}
+		err = json.Unmarshal(data, &imageInstance)
+		response := make(map[string]interface{})
+		response["image"] = imageInstance.Content
+		return response, err
 	case "interface":
-		if object_id == "" {
-			interface_instance := INTERFACE{}
-			err = json.Unmarshal(data, &interface_instance)
-			fmt.Println(interface_instance.Content[0])
-		} else {
-			interface_instance := INTERFACE_SPECIFIC{}
-			err = json.Unmarshal(data, &interface_instance)
-			fmt.Println(interface_instance.Content)
+		if objectId == "" {
+			interfaceInstance := Interface{}
+			err = json.Unmarshal(data, &interfaceInstance)
+			response := make(map[string]interface{})
+			response["interface"] = interfaceInstance.Content
+			return response, err
 		}
 
+		interfaceInstance := InterfaceSpecific{}
+		err = json.Unmarshal(data, &interfaceInstance)
+		response := make(map[string]interface{})
+		response["interface"] = interfaceInstance.Content
+		return response, err
 	case "ip_address":
-		if object_id == "" {
-			ip_address_instance := IP_ADDRESS{}
-			err = json.Unmarshal(data, &ip_address_instance)
-			fmt.Println(ip_address_instance.Content[0])
-		} else {
-			ip_address_instance := IP_ADDRESS_SPECIFIC{}
-			err = json.Unmarshal(data, &ip_address_instance)
-			fmt.Println(ip_address_instance.Content)
+		if objectId == "" {
+			ipAddressInstance := IpAddress{}
+			err = json.Unmarshal(data, &ipAddressInstance)
+			response := make(map[string]interface{})
+			response["ip_address"] = ipAddressInstance.Content
+			return response, err
 		}
+
+		ipAddressInstance := IpAddressSpecific{}
+		err = json.Unmarshal(data, &ipAddressInstance)
+		response := make(map[string]interface{})
+		response["ip_address"] = ipAddressInstance.Content
+		return response, err
 
 	case "ipmi":
-		if object_id == "" {
-			ipmi_instance := IPMI{}
-			err = json.Unmarshal(data, &ipmi_instance)
-			fmt.Println(ipmi_instance.Content[0])
-		} else {
-			ipmi_instance := IPMI_SPECIFIC{}
-			err = json.Unmarshal(data, &ipmi_instance)
-			fmt.Println(ipmi_instance.Content)
+		if objectId == "" {
+			ipmiInstance := Ipmi{}
+			err = json.Unmarshal(data, &ipmiInstance)
+			response := make(map[string]interface{})
+			response["ipmi"] = ipmiInstance.Content
+			return response, err
 		}
 
+		ipmiInstance := IpmiSpecific{}
+		err = json.Unmarshal(data, &ipmiInstance)
+		response := make(map[string]interface{})
+		response["ipmi"] = ipmiInstance.Content
+		return response, err
 	case "policy_log":
-		if object_id == "" {
-			fmt.Println("Invalid URL for policy log.")
-		} else {
-			policy_log_instance := POLICY_LOG{}
-			err = json.Unmarshal(data, &policy_log_instance)
-			fmt.Println(policy_log_instance.Content)
+		if objectId == "" {
+			return nil, fmt.Errorf("Invalid URL for policy log.")
 		}
 
+		policy_logInstance := PolicyLog{}
+		err = json.Unmarshal(data, &policy_logInstance)
+		response := make(map[string]interface{})
+		response["policy_log"] = policy_logInstance.Content
+		return response, err
 	case "pool_ip":
-		if object_id == "" {
-			pool_ip_instance := POOL_IP{}
-			err = json.Unmarshal(data, &pool_ip_instance)
-			fmt.Println(pool_ip_instance.Content[0])
-		} else {
-			pool_ip_instance := POOL_IP_SPECIFIC{}
-			err = json.Unmarshal(data, &pool_ip_instance)
-			fmt.Println(pool_ip_instance.Content)
+		if objectId == "" {
+			poolIpInstance := PoolIp{}
+			err = json.Unmarshal(data, &poolIpInstance)
+			response := make(map[string]interface{})
+			response["pool_ip"] = poolIpInstance.Content
+			return response, err
 		}
 
+		poolIpInstance := PoolIpSpecific{}
+		err = json.Unmarshal(data, &poolIpInstance)
+		response := make(map[string]interface{})
+		response["pool_ip"] = poolIpInstance.Content
+		return response, err
 	case "project":
-		if object_id == "" {
-			project_instance := PROJECT{}
-			err = json.Unmarshal(data, &project_instance)
-			fmt.Println(project_instance.Content[0])
-		} else {
-			project_instance := PROJECT_SPECIFIC{}
-			err = json.Unmarshal(data, &project_instance)
-			fmt.Println(project_instance.Content)
+		if objectId == "" {
+			projectInstance := Project{}
+			err = json.Unmarshal(data, &projectInstance)
+			response := make(map[string]interface{})
+			response["project"] = projectInstance.Content
+			return response, err
 		}
 
+		projectInstance := ProjectSpecific{}
+		err = json.Unmarshal(data, &projectInstance)
+		response := make(map[string]interface{})
+		response["project"] = projectInstance.Content
+		return response, err
 	case "ptr_record":
-		if object_id == "" {
-			ptr_record_instance := PTR_RECORD{}
-			err = json.Unmarshal(data, &ptr_record_instance)
-			fmt.Println(ptr_record_instance.Content[0])
-		} else {
-			ptr_record_instance := PTR_RECORD_SPECIFIC{}
-			err = json.Unmarshal(data, &ptr_record_instance)
-			fmt.Println(ptr_record_instance.Content)
+		if objectId == "" {
+			ptrRecordInstance := PtrRecord{}
+			err = json.Unmarshal(data, &ptrRecordInstance)
+			response := make(map[string]interface{})
+			response["ptr_record"] = ptrRecordInstance.Content
+			return response, err
 		}
 
+		ptrRecordInstance := PtrRecordSpecific{}
+		err = json.Unmarshal(data, &ptrRecordInstance)
+		response := make(map[string]interface{})
+		response["ptr_record"] = ptrRecordInstance.Content
+		return response, err
 	case "record":
-		if object_id == "" {
-			record_instance := RECORD{}
-			err = json.Unmarshal(data, &record_instance)
-			fmt.Println(record_instance.Content[0])
-		} else {
-			record_instance := RECORD_SPECIFIC{}
-			err = json.Unmarshal(data, &record_instance)
-			fmt.Println(record_instance.Content)
+		if objectId == "" {
+			recordInstance := Record{}
+			err = json.Unmarshal(data, &recordInstance)
+			response := make(map[string]interface{})
+			response["record"] = recordInstance.Content
+			return response, err
 		}
 
+		recordInstance := RecordSpecific{}
+		err = json.Unmarshal(data, &recordInstance)
+		response := make(map[string]interface{})
+		response["record"] = recordInstance.Content
+		return response, err
 	case "router":
-		if object_id == "" {
-			router_instance := ROUTER{}
-			err = json.Unmarshal(data, &router_instance)
-			fmt.Println(router_instance.Content[0])
-		} else {
-			router_instance := ROUTER_SPECIFIC{}
-			err = json.Unmarshal(data, &router_instance)
-			fmt.Println(router_instance.Content)
+		if objectId == "" {
+			routerInstance := Router{}
+			err = json.Unmarshal(data, &routerInstance)
+			response := make(map[string]interface{})
+			response["router"] = routerInstance.Content
+			return response, err
 		}
 
+		routerInstance := RouterSpecific{}
+		err = json.Unmarshal(data, &routerInstance)
+		response := make(map[string]interface{})
+		response["router"] = routerInstance.Content
+		return response, err
 	case "server":
-		if object_id == "" {
-			server_instance := SERVER{}
-			err = json.Unmarshal(data, &server_instance)
-			fmt.Println(server_instance.Content[0])
-		} else {
-			server_instance := SERVER_SPECIFIC{}
-			err = json.Unmarshal(data, &server_instance)
-			fmt.Println(server_instance.Content)
+		if objectId == "" {
+			serverInstance := Server{}
+			err = json.Unmarshal(data, &serverInstance)
+			response := make(map[string]interface{})
+			response["server"] = serverInstance.Content
+			return response, err
 		}
 
+		serverInstance := ServerSpecific{}
+		err = json.Unmarshal(data, &serverInstance)
+		response := make(map[string]interface{})
+		response["server"] = serverInstance.Content
+		return response, err
 	case "server_type":
-		if object_id == "" {
-			server_type_instance := SERVER_TYPE{}
-			err = json.Unmarshal(data, &server_type_instance)
-			fmt.Println(server_type_instance.Content[0])
-		} else {
-			server_type_instance := SERVER_TYPE_SPECIFIC{}
-			err = json.Unmarshal(data, &server_type_instance)
-			fmt.Println(server_type_instance.Content)
+		if objectId == "" {
+			serverTypeInstance := ServerType{}
+			err = json.Unmarshal(data, &serverTypeInstance)
+			response := make(map[string]interface{})
+			response["server_type"] = serverTypeInstance.Content
+			return response, err
 		}
 
+		serverTypeInstance := ServerTypeSpecific{}
+		err = json.Unmarshal(data, &serverTypeInstance)
+		response := make(map[string]interface{})
+		response["server_type"] = serverTypeInstance.Content
+		return response, err
 	case "storage_type":
-		if object_id == "" {
-			storage_type_instance := STORAGE_TYPE{}
-			err = json.Unmarshal(data, &storage_type_instance)
-			fmt.Println(storage_type_instance.Content[0])
-		} else {
-			storage_type_instance := STORAGE_TYPE_SPECIFIC{}
-			err = json.Unmarshal(data, &storage_type_instance)
-			fmt.Println(storage_type_instance.Content)
+		if objectId == "" {
+			storageTypeInstance := StorageType{}
+			err = json.Unmarshal(data, &storageTypeInstance)
+			response := make(map[string]interface{})
+			response["storage_type"] = storageTypeInstance.Content
+			return response, err
 		}
 
+		storageTypeInstance := StorageTypeSpecific{}
+		err = json.Unmarshal(data, &storageTypeInstance)
+		response := make(map[string]interface{})
+		response["storage_type"] = storageTypeInstance.Content
+		return response, err
 	case "subnet":
-		if object_id == "" {
-			subnet_instance := SUBNET{}
-			err = json.Unmarshal(data, &subnet_instance)
-			fmt.Println(subnet_instance.Content[0])
-		} else {
-			subnet_instance := SUBNET_SPECIFIC{}
-			err = json.Unmarshal(data, &subnet_instance)
-			fmt.Println(subnet_instance.Content)
+		if objectId == "" {
+			subnetInstance := Subnet{}
+			err = json.Unmarshal(data, &subnetInstance)
+			response := make(map[string]interface{})
+			response["subnet"] = subnetInstance.Content
+			return response, err
 		}
 
+		subnetInstance := SubnetSpecific{}
+		err = json.Unmarshal(data, &subnetInstance)
+		response := make(map[string]interface{})
+		response["subnet"] = subnetInstance.Content
+		return response, err
 	case "subnet_space":
-		if object_id == "" {
-			fmt.Println("Invalid URL for subnet space.")
-
-		} else {
-			subnet_space_instance := SUBNET_SPACE{}
-			err = json.Unmarshal(data, &subnet_space_instance)
-			fmt.Println(subnet_space_instance.Content)
+		if objectId == "" {
+			return nil, fmt.Errorf("Invalid URL for subnet space.")
 		}
 
+		subnetSpaceInstance := SubnetSpace{}
+		err = json.Unmarshal(data, &subnetSpaceInstance)
+		response := make(map[string]interface{})
+		response["subnet_space"] = subnetSpaceInstance.Content
+		return response, err
 	case "virtual_router":
-		if object_id == "" {
-			virtual_router_instance := VIRTUAL_ROUTER{}
-			err = json.Unmarshal(data, &virtual_router_instance)
-			fmt.Println(virtual_router_instance.Content[0])
-		} else {
-			virtual_router_instance := VIRTUAL_ROUTER_SPECIFIC{}
-			err = json.Unmarshal(data, &virtual_router_instance)
-			fmt.Println(virtual_router_instance.Content)
+		if objectId == "" {
+			virtualRouterInstance := VirtualRouter{}
+			err = json.Unmarshal(data, &virtualRouterInstance)
+			response := make(map[string]interface{})
+			response["virtual_router"] = virtualRouterInstance.Content
+			return response, err
 		}
 
+		virtualRouterInstance := VirtualRouterSpecific{}
+		err = json.Unmarshal(data, &virtualRouterInstance)
+		response := make(map[string]interface{})
+		response["virtual_router"] = virtualRouterInstance.Content
+		return response, err
 	case "vm":
-		if object_id == "" {
-			vm_instance := VM{}
-			err = json.Unmarshal(data, &vm_instance)
-			fmt.Println(vm_instance.Content[0])
-		} else {
-			vm_instance := VM_SPECIFIC{}
-			err = json.Unmarshal(data, &vm_instance)
-			fmt.Println(vm_instance.Content)
+		if objectId == "" {
+			vmInstance := Vm{}
+			err = json.Unmarshal(data, &vmInstance)
+			response := make(map[string]interface{})
+			response["vm"] = vmInstance.Content
+			return response, err
 		}
 
+		vmInstance := VmSpecific{}
+		err = json.Unmarshal(data, &vmInstance)
+		response := make(map[string]interface{})
+		response["vm"] = vmInstance.Content
+		return response, err
 	case "vpn":
-		if object_id == "" {
-			vpn_instance := VPN{}
-			err = json.Unmarshal(data, &vpn_instance)
-			fmt.Println(vpn_instance.Content[0])
-		} else {
-			vpn_instance := VPN_SPECIFIC{}
-			err = json.Unmarshal(data, &vpn_instance)
-			fmt.Println(vpn_instance.Content)
+		if objectId == "" {
+			vpnInstance := Vpn{}
+			err = json.Unmarshal(data, &vpnInstance)
+			response := make(map[string]interface{})
+			response["vpn"] = vpnInstance.Content
+			return response, err
 		}
+
+		vpnInstance := VpnSpecific{}
+		err = json.Unmarshal(data, &vpnInstance)
+		response := make(map[string]interface{})
+		response["vpn"] = vpnInstance.Content
+		return response, err
 	}
+
+	return nil, fmt.Errorf("IAAS service not found")
 }
 
-func Membership_switch(service string, object_id string, data []byte, err error) {
+func MembershipSwitch(service string, objectId string, data []byte) (map[string]interface{}, error) {
+	var err error
+
 	switch service {
 	case "address":
-		address_instance := ADDRESS{}
-		err = json.Unmarshal(data, &address_instance)
-		fmt.Println(address_instance.Content[0])
-
+		addressInstance := Address{}
+		err = json.Unmarshal(data, &addressInstance)
+		response := make(map[string]interface{})
+		response["address"] = addressInstance.Content
+		return response, err
 	case "app_settings":
-		app_settings_instance := APP_SETTINGS{}
-		err = json.Unmarshal(data, &app_settings_instance)
-		fmt.Println(app_settings_instance.Content)
-
+		appSettingsInstance := AppSettings{}
+		err = json.Unmarshal(data, &appSettingsInstance)
+		response := make(map[string]interface{})
+		response["app_setting"] = appSettingsInstance.Content
+		return response, err
 	case "country":
-		if object_id == "" {
-			country_instance := COUNTRY{}
-			err = json.Unmarshal(data, &country_instance)
-			fmt.Println(country_instance.Content[0])
-		} else {
-			country_instance := COUNTRY_SPECIFIC{}
-			err = json.Unmarshal(data, &country_instance)
-			fmt.Println(country_instance.Content)
+		if objectId == "" {
+			countryInstance := Country{}
+			err = json.Unmarshal(data, &countryInstance)
+			response := make(map[string]interface{})
+			response["country"] = countryInstance.Content
+			return response, err
 		}
 
+		countryInstance := CountrySpecific{}
+		err = json.Unmarshal(data, &countryInstance)
+		response := make(map[string]interface{})
+		response["country"] = countryInstance.Content
+		return response, err
 	case "currency":
-		if object_id == "" {
-			currency_instance := CURRENCY{}
-			err = json.Unmarshal(data, &currency_instance)
-			fmt.Println(currency_instance.Content[0])
-		} else {
-			currency_instance := CURRENCY_SPECIFIC{}
-			err = json.Unmarshal(data, &currency_instance)
-			fmt.Println(currency_instance.Content)
+		if objectId == "" {
+			currencyInstance := Currency{}
+			err = json.Unmarshal(data, &currencyInstance)
+			response := make(map[string]interface{})
+			response["currency"] = currencyInstance.Content
+			return response, err
 		}
 
+		currencyInstance := CurrencySpecific{}
+		err = json.Unmarshal(data, &currencyInstance)
+		response := make(map[string]interface{})
+		response["currency"] = currencyInstance.Content
+		return response, err
 	case "department":
-		if object_id == "" {
-			department_instance := DEPARTMENT{}
-			err = json.Unmarshal(data, &department_instance)
-			fmt.Println(department_instance.Content[0])
-		} else {
-			department_instance := DEPARTMENT_SPECIFIC{}
-			err = json.Unmarshal(data, &department_instance)
-			fmt.Println(department_instance.Content)
+		if objectId == "" {
+			departmentInstance := Department{}
+			err = json.Unmarshal(data, &departmentInstance)
+			response := make(map[string]interface{})
+			response["department"] = departmentInstance.Content
+			return response, err
 		}
 
+		departmentInstance := DepartmentSpecific{}
+		err = json.Unmarshal(data, &departmentInstance)
+		response := make(map[string]interface{})
+		response["department"] = departmentInstance.Content
+		return response, err
 	case "email_confirmation":
-		email_instance := EMAIL_CONFIRMED{}
-		err = json.Unmarshal(data, &email_instance)
-		fmt.Println(email_instance.Content)
-
+		emailInstance := EmailConfirmed{}
+		err = json.Unmarshal(data, &emailInstance)
+		response := make(map[string]interface{})
+		response["email_confirmation"] = emailInstance.Content
+		return response, err
 	case "language":
-		if object_id == "" {
-			language_instance := LANGUAGE{}
-			err = json.Unmarshal(data, &language_instance)
-			fmt.Println(language_instance.Content[0])
-		} else {
-			language_instance := LANGUAGE_SPECIFIC{}
-			err = json.Unmarshal(data, &language_instance)
-			fmt.Println(language_instance.Content)
+		if objectId == "" {
+			languageInstance := Language{}
+			err = json.Unmarshal(data, &languageInstance)
+			response := make(map[string]interface{})
+			response["language"] = languageInstance.Content
+			return response, err
 		}
 
+		languageInstance := LanguageSpecific{}
+		err = json.Unmarshal(data, &languageInstance)
+		response := make(map[string]interface{})
+		response["language"] = languageInstance.Content
+		return response, err
 	case "member":
-		if object_id == "" {
-			member_instance := MEMBER{}
-			err = json.Unmarshal(data, &member_instance)
-			fmt.Println(member_instance.Content[0])
-		} else {
-			member_instance := MEMBER_SPECIFIC{}
-			err = json.Unmarshal(data, &member_instance)
-			fmt.Println(member_instance.Content)
+		if objectId == "" {
+			memberInstance := Member{}
+			err = json.Unmarshal(data, &memberInstance)
+			response := make(map[string]interface{})
+			response["member"] = memberInstance.Content
+			return response, err
 		}
 
+		memberInstance := MemberSpecific{}
+		err = json.Unmarshal(data, &memberInstance)
+		response := make(map[string]interface{})
+		response["member"] = memberInstance.Content
+		return response, err
 	case "profile":
-		if object_id == "" {
-			profile_instance := PROFILE{}
-			err = json.Unmarshal(data, &profile_instance)
-			fmt.Println(profile_instance.Content[0])
-		} else {
-			profile_instance := PROFILE_SPECIFIC{}
-			err = json.Unmarshal(data, &profile_instance)
-			fmt.Println(profile_instance.Content)
+		if objectId == "" {
+			profileInstance := Profile{}
+			err = json.Unmarshal(data, &profileInstance)
+			response := make(map[string]interface{})
+			response["profile"] = profileInstance.Content
+			return response, err
 		}
 
+		profileInstance := ProfileSpecific{}
+		err = json.Unmarshal(data, &profileInstance)
+		response := make(map[string]interface{})
+		response["profile"] = profileInstance.Content
+		return response, err
 	case "team":
-		if object_id == "" {
-			team_instance := TEAM{}
-			err = json.Unmarshal(data, &team_instance)
-			fmt.Println(team_instance.Content[0])
-		} else {
-			team_instance := TEAM_SPECIFIC{}
-			err = json.Unmarshal(data, &team_instance)
-			fmt.Println(team_instance.Content)
+		if objectId == "" {
+			teamInstance := Team{}
+			err = json.Unmarshal(data, &teamInstance)
+			response := make(map[string]interface{})
+			response["team"] = teamInstance.Content
+			return response, err
 		}
 
+		teamInstance := TeamSpecific{}
+		err = json.Unmarshal(data, &teamInstance)
+		response := make(map[string]interface{})
+		response["team"] = teamInstance.Content
+		return response, err
 	case "territory":
-		if object_id == "" {
-			territory_instance := TERRITORY{}
-			err = json.Unmarshal(data, &territory_instance)
-			fmt.Println(territory_instance.Content[0])
-		} else {
-			territory_instance := TERRITORY_SPECIFIC{}
-			err = json.Unmarshal(data, &territory_instance)
-			fmt.Println(territory_instance.Content)
+		if objectId == "" {
+			territoryInstance := Territory{}
+			err = json.Unmarshal(data, &territoryInstance)
+			response := make(map[string]interface{})
+			response["territory"] = territoryInstance.Content
+			return response, err
 		}
 
+		territoryInstance := TerritorySpecific{}
+		err = json.Unmarshal(data, &territoryInstance)
+		response := make(map[string]interface{})
+		response["territory"] = territoryInstance.Content
+		return response, err
 	case "transaction_type":
-		if object_id == "" {
-			transaction_type_instance := TRANSACTION_TYPE{}
-			err = json.Unmarshal(data, &transaction_type_instance)
-			fmt.Println(transaction_type_instance.Content[0])
+		if objectId == "" {
+			transactionTypeInstance := TransactionType{}
+			err = json.Unmarshal(data, &transactionTypeInstance)
+			response := make(map[string]interface{})
+			response["transaction_type"] = transactionTypeInstance.Content
+			return response, err
 		} else {
-			transaction_type_instance := TRANSACTION_TYPE_SPECIFIC{}
-			err = json.Unmarshal(data, &transaction_type_instance)
-			fmt.Println(transaction_type_instance.Content)
+			transactionTypeInstance := TranscationTypeSpecific{}
+			err = json.Unmarshal(data, &transactionTypeInstance)
+			response := make(map[string]interface{})
+			response["transaction_type"] = transactionTypeInstance.Content
+			return response, err
 		}
 
 	case "user":
-		if object_id == "" {
-			user_instance := USER{}
-			err = json.Unmarshal(data, &user_instance)
-			fmt.Println(user_instance.Content[0])
-		} else {
-			user_instance := USER_SPECIFIC{}
-			err = json.Unmarshal(data, &user_instance)
-			fmt.Println(user_instance.Content)
+		if objectId == "" {
+			userInstance := User{}
+			err = json.Unmarshal(data, &userInstance)
+			response := make(map[string]interface{})
+			response["user"] = userInstance.Content
+			return response, err
 		}
+
+		userInstance := UserSpecific{}
+		err = json.Unmarshal(data, &userInstance)
+		response := make(map[string]interface{})
+		response["user"] = userInstance.Content
+		return response, err
 	}
+
+	return nil, fmt.Errorf("Membership service not found")
 }
 
-func Training_switch(service string, object_id string, data []byte, err error) {
+func TrainingSwitch(service string, objectId string, data []byte) (map[string]interface{}, error) {
+	var err error
+
 	switch service {
 	case "class":
-		if object_id == "" {
-			class_instance := CLASS{}
-			err = json.Unmarshal(data, &class_instance)
-			fmt.Println(class_instance.Content[0])
-		} else {
-			class_instance := CLASS_SPECIFIC{}
-			err = json.Unmarshal(data, &class_instance)
-			fmt.Println(class_instance.Content)
+		if objectId == "" {
+			classInstance := Class{}
+			err = json.Unmarshal(data, &classInstance)
+			response := make(map[string]interface{})
+			response["class"] = classInstance.Content
+			return response, err
 		}
 
+		classInstance := ClassSpecific{}
+		err = json.Unmarshal(data, &classInstance)
+		response := make(map[string]interface{})
+		response["class"] = classInstance.Content
+		return response, err
 	case "student":
-		if object_id == "" {
-			student_instance := STUDENT{}
-			err = json.Unmarshal(data, &student_instance)
-			fmt.Println(student_instance.Content[0])
-		} else {
-			student_instance := STUDENT_SPECIFIC{}
-			err = json.Unmarshal(data, &student_instance)
-			fmt.Println(student_instance.Content)
+		if objectId == "" {
+			studentInstance := Student{}
+			err = json.Unmarshal(data, &studentInstance)
+			response := make(map[string]interface{})
+			response["student"] = studentInstance.Content
+			return response, err
 		}
 
+		studentInstance := StudentSpecific{}
+		err = json.Unmarshal(data, &studentInstance)
+		response := make(map[string]interface{})
+		response["student"] = studentInstance.Content
+		return response, err
 	case "syllabus":
-		if object_id == "" {
-			syllabus_instance := SYLLABUS{}
-			err = json.Unmarshal(data, &syllabus_instance)
-			fmt.Println(syllabus_instance.Content[0])
-		} else {
-			syllabus_instance := SYLLABUS_SPECIFIC{}
-			err = json.Unmarshal(data, &syllabus_instance)
-			fmt.Println(syllabus_instance.Content)
+		response := make(map[string]interface{})
+		if objectId == "" {
+			syllabusInstance := Syllabus{}
+			err = json.Unmarshal(data, &syllabusInstance)
+			return response, err
 		}
+
+		syllabusInstance := SyllabusSpecific{}
+		err = json.Unmarshal(data, &syllabusInstance)
+
+		response["id"] = syllabusInstance.Content.ID
+		response["name"] = syllabusInstance.Content.Name
+		response["description"] = syllabusInstance.Content.Description
+		response["member_id"] = syllabusInstance.Content.MemberID
+		response["uri"] = syllabusInstance.Content.URI
+
+		return response, err
 	}
+
+	return nil, fmt.Errorf("Training service not found")
 }
