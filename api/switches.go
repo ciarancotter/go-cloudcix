@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func ApplicationSwitch(application string, service string, objectId string, data []byte) (string, error) {
+func ApplicationSwitch(application string, service string, objectId string, data []byte) (map[string]interface{}, error) {
 	switch application {
 	case "iaas":
 		return IaasSwitch(service, objectId, data)
@@ -15,409 +15,516 @@ func ApplicationSwitch(application string, service string, objectId string, data
 		return TrainingSwitch(service, objectId, data)
 	}
 
-	return "", fmt.Errorf("application not found")
+	return nil, fmt.Errorf("application not found")
 }
 
-func IaasSwitch(service string, objectId string, data []byte) (string, error) {
+func IaasSwitch(service string, objectId string, data []byte) (map[string]interface{}, error) {
 	var err error
 	switch service {
 	case "allocation":
 		if objectId == "" {
 			allocationInstance := Allocation{}
 			err = json.Unmarshal(data, &allocationInstance)
-			return fmt.Sprint(allocationInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["allocation"] = allocationInstance.Content
+			return response, err
 		}
 
 		allocationInstance := AllocationSpecific{}
 		err = json.Unmarshal(data, &allocationInstance)
-		return fmt.Sprint(allocationInstance.Content), err
+		response := make(map[string]interface{})
+		response["allocation"] = allocationInstance.Content
+		return response, err
 
 	case "app_settings":
 		appSettingsInstance := AppSettingsSpecific{}
 		err = json.Unmarshal(data, &appSettingsInstance)
-		return fmt.Sprint(appSettingsInstance.Content), err
+		response := make(map[string]interface{})
+		response["app_settings"] = appSettingsInstance.Content
+		return response, err
 
 	case "asn":
 		if objectId == "" {
 			asnInstance := Asn{}
 			err = json.Unmarshal(data, &asnInstance)
-			return fmt.Sprint(asnInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["asn"] = asnInstance.Content
+			return response, err
 		}
 
 		asnInstance := AsnSpecific{}
 		err = json.Unmarshal(data, &asnInstance)
-		return fmt.Sprint(asnInstance.Content), err
+		response := make(map[string]interface{})
+		response["asn"] = asnInstance.Content
+		return response, err
 
 	case "cix_blacklist":
 		if objectId == "" {
 			cixBlacklistInstance := CixBlacklist{}
 			err = json.Unmarshal(data, &cixBlacklistInstance)
-			return fmt.Sprint(cixBlacklistInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["cix_blacklist"] = cixBlacklistInstance.Content
+			return response, err
 		}
 
 		cixBlacklistInstance := CixBlacklistSpecific{}
 		err = json.Unmarshal(data, &cixBlacklistInstance)
-		return fmt.Sprint(cixBlacklistInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["cix_blacklist"] = cixBlacklistInstance.Content
+		return response, err
 	case "cix_whitelist":
 		if objectId == "" {
 			cixWhitelistInstance := CixWhitelist{}
 			err = json.Unmarshal(data, &cixWhitelistInstance)
-			return fmt.Sprint(cixWhitelistInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["cix_whitelist"] = cixWhitelistInstance.Content
+			return response, err
 		}
 
 		cixWhitelistInstance := CixWhitelistSpecific{}
 		err = json.Unmarshal(data, &cixWhitelistInstance)
-		return fmt.Sprint(cixWhitelistInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["cix_whitelist"] = cixWhitelistInstance.Content
+		return response, err
 	case "cloud":
 		cloudInstance := Cloud{}
 		err = json.Unmarshal(data, &cloudInstance)
-		return fmt.Sprint(cloudInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["cloud"] = cloudInstance.Content
+		return response, err
 	case "domain":
 		if objectId == "" {
 			domainInstance := Domain{}
 			err = json.Unmarshal(data, &domainInstance)
-			return fmt.Sprint(domainInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["domain"] = domainInstance.Content
+			return response, err
 		}
 
 		domainInstance := DomainSpecific{}
 		err = json.Unmarshal(data, &domainInstance)
-		return fmt.Sprint(domainInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["domain"] = domainInstance.Content
+		return response, err
 	case "image":
 		if objectId == "" {
 			imageInstance := Image{}
 			err = json.Unmarshal(data, &imageInstance)
-			return fmt.Sprint(imageInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["image"] = imageInstance.Content
+			return response, err
 		}
 
 		imageInstance := ImageSpecific{}
 		err = json.Unmarshal(data, &imageInstance)
-		return fmt.Sprint(imageInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["image"] = imageInstance.Content
+		return response, err
 	case "interface":
 		if objectId == "" {
 			interfaceInstance := Interface{}
 			err = json.Unmarshal(data, &interfaceInstance)
-			return fmt.Sprint(interfaceInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["interface"] = interfaceInstance.Content
+			return response, err
 		}
 
 		interfaceInstance := InterfaceSpecific{}
 		err = json.Unmarshal(data, &interfaceInstance)
-		return fmt.Sprint(interfaceInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["interface"] = interfaceInstance.Content
+		return response, err
 	case "ip_address":
 		if objectId == "" {
 			ipAddressInstance := IpAddress{}
 			err = json.Unmarshal(data, &ipAddressInstance)
-			return fmt.Sprint(ipAddressInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["ip_address"] = ipAddressInstance.Content
+			return response, err
 		}
 
 		ipAddressInstance := IpAddressSpecific{}
 		err = json.Unmarshal(data, &ipAddressInstance)
-		return fmt.Sprint(ipAddressInstance.Content), err
+		response := make(map[string]interface{})
+		response["ip_address"] = ipAddressInstance.Content
+		return response, err
 
 	case "ipmi":
 		if objectId == "" {
 			ipmiInstance := Ipmi{}
 			err = json.Unmarshal(data, &ipmiInstance)
-			return fmt.Sprint(ipmiInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["ipmi"] = ipmiInstance.Content
+			return response, err
 		}
 
 		ipmiInstance := IpmiSpecific{}
 		err = json.Unmarshal(data, &ipmiInstance)
-		return fmt.Sprint(ipmiInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["ipmi"] = ipmiInstance.Content
+		return response, err
 	case "policy_log":
 		if objectId == "" {
-			return "", fmt.Errorf("Invalid URL for policy log.")
+			return nil, fmt.Errorf("Invalid URL for policy log.")
 		}
 
 		policy_logInstance := PolicyLog{}
 		err = json.Unmarshal(data, &policy_logInstance)
-		return fmt.Sprint(policy_logInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["policy_log"] = policy_logInstance.Content
+		return response, err
 	case "pool_ip":
 		if objectId == "" {
 			poolIpInstance := PoolIp{}
 			err = json.Unmarshal(data, &poolIpInstance)
-			return fmt.Sprint(poolIpInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["pool_ip"] = poolIpInstance.Content
+			return response, err
 		}
 
 		poolIpInstance := PoolIpSpecific{}
 		err = json.Unmarshal(data, &poolIpInstance)
-		return fmt.Sprint(poolIpInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["pool_ip"] = poolIpInstance.Content
+		return response, err
 	case "project":
 		if objectId == "" {
 			projectInstance := Project{}
 			err = json.Unmarshal(data, &projectInstance)
-			return fmt.Sprint(projectInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["project"] = projectInstance.Content
+			return response, err
 		}
 
 		projectInstance := ProjectSpecific{}
 		err = json.Unmarshal(data, &projectInstance)
-		return fmt.Sprint(projectInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["project"] = projectInstance.Content
+		return response, err
 	case "ptr_record":
 		if objectId == "" {
 			ptrRecordInstance := PtrRecord{}
 			err = json.Unmarshal(data, &ptrRecordInstance)
-			return fmt.Sprint(ptrRecordInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["ptr_record"] = ptrRecordInstance.Content
+			return response, err
 		}
 
 		ptrRecordInstance := PtrRecordSpecific{}
 		err = json.Unmarshal(data, &ptrRecordInstance)
-		return fmt.Sprint(ptrRecordInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["ptr_record"] = ptrRecordInstance.Content
+		return response, err
 	case "record":
 		if objectId == "" {
 			recordInstance := Record{}
 			err = json.Unmarshal(data, &recordInstance)
-			return fmt.Sprint(recordInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["record"] = recordInstance.Content
+			return response, err
 		}
 
 		recordInstance := RecordSpecific{}
 		err = json.Unmarshal(data, &recordInstance)
-		return fmt.Sprint(recordInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["record"] = recordInstance.Content
+		return response, err
 	case "router":
 		if objectId == "" {
 			routerInstance := Router{}
 			err = json.Unmarshal(data, &routerInstance)
-			return fmt.Sprint(routerInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["router"] = routerInstance.Content
+			return response, err
 		}
 
 		routerInstance := RouterSpecific{}
 		err = json.Unmarshal(data, &routerInstance)
-		return fmt.Sprint(routerInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["router"] = routerInstance.Content
+		return response, err
 	case "server":
 		if objectId == "" {
 			serverInstance := Server{}
 			err = json.Unmarshal(data, &serverInstance)
-			return fmt.Sprint(serverInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["server"] = serverInstance.Content
+			return response, err
 		}
 
 		serverInstance := ServerSpecific{}
 		err = json.Unmarshal(data, &serverInstance)
-		return fmt.Sprint(serverInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["server"] = serverInstance.Content
+		return response, err
 	case "server_type":
 		if objectId == "" {
 			serverTypeInstance := ServerType{}
 			err = json.Unmarshal(data, &serverTypeInstance)
-			return fmt.Sprint(serverTypeInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["server_type"] = serverTypeInstance.Content
+			return response, err
 		}
 
 		serverTypeInstance := ServerTypeSpecific{}
 		err = json.Unmarshal(data, &serverTypeInstance)
-		return fmt.Sprint(serverTypeInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["server_type"] = serverTypeInstance.Content
+		return response, err
 	case "storage_type":
 		if objectId == "" {
 			storageTypeInstance := StorageType{}
 			err = json.Unmarshal(data, &storageTypeInstance)
-			return fmt.Sprint(storageTypeInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["storage_type"] = storageTypeInstance.Content
+			return response, err
 		}
 
 		storageTypeInstance := StorageTypeSpecific{}
 		err = json.Unmarshal(data, &storageTypeInstance)
-		return fmt.Sprint(storageTypeInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["storage_type"] = storageTypeInstance.Content
+		return response, err
 	case "subnet":
 		if objectId == "" {
 			subnetInstance := Subnet{}
 			err = json.Unmarshal(data, &subnetInstance)
-			return fmt.Sprint(subnetInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["subnet"] = subnetInstance.Content
+			return response, err
 		}
 
 		subnetInstance := SubnetSpecific{}
 		err = json.Unmarshal(data, &subnetInstance)
-		return fmt.Sprint(subnetInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["subnet"] = subnetInstance.Content
+		return response, err
 	case "subnet_space":
 		if objectId == "" {
-			return "", fmt.Errorf("Invalid URL for subnet space.")
+			return nil, fmt.Errorf("Invalid URL for subnet space.")
 		}
 
 		subnetSpaceInstance := SubnetSpace{}
 		err = json.Unmarshal(data, &subnetSpaceInstance)
-		return fmt.Sprint(subnetSpaceInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["subnet_space"] = subnetSpaceInstance.Content
+		return response, err
 	case "virtual_router":
 		if objectId == "" {
 			virtualRouterInstance := VirtualRouter{}
 			err = json.Unmarshal(data, &virtualRouterInstance)
-			return fmt.Sprint(virtualRouterInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["virtual_router"] = virtualRouterInstance.Content
+			return response, err
 		}
 
 		virtualRouterInstance := VirtualRouterSpecific{}
 		err = json.Unmarshal(data, &virtualRouterInstance)
-		return fmt.Sprint(virtualRouterInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["virtual_router"] = virtualRouterInstance.Content
+		return response, err
 	case "vm":
 		if objectId == "" {
 			vmInstance := Vm{}
 			err = json.Unmarshal(data, &vmInstance)
-			return fmt.Sprint(vmInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["vm"] = vmInstance.Content
+			return response, err
 		}
 
 		vmInstance := VmSpecific{}
 		err = json.Unmarshal(data, &vmInstance)
-		return fmt.Sprint(vmInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["vm"] = vmInstance.Content
+		return response, err
 	case "vpn":
 		if objectId == "" {
 			vpnInstance := Vpn{}
 			err = json.Unmarshal(data, &vpnInstance)
-			return fmt.Sprint(vpnInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["vpn"] = vpnInstance.Content
+			return response, err
 		}
 
 		vpnInstance := VpnSpecific{}
 		err = json.Unmarshal(data, &vpnInstance)
-		return fmt.Sprint(vpnInstance.Content), err
+		response := make(map[string]interface{})
+		response["vpn"] = vpnInstance.Content
+		return response, err
 	}
 
-	return "", fmt.Errorf("IAAS service not found")
+	return nil, fmt.Errorf("IAAS service not found")
 }
 
-func MembershipSwitch(service string, objectId string, data []byte) (string, error) {
+func MembershipSwitch(service string, objectId string, data []byte) (map[string]interface{}, error) {
 	var err error
 
 	switch service {
 	case "address":
 		addressInstance := Address{}
 		err = json.Unmarshal(data, &addressInstance)
-		return fmt.Sprint(addressInstance.Content[0]), err
-
+		response := make(map[string]interface{})
+		response["address"] = addressInstance.Content
+		return response, err
 	case "app_settings":
 		appSettingsInstance := AppSettings{}
 		err = json.Unmarshal(data, &appSettingsInstance)
-		return fmt.Sprint(appSettingsInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["app_setting"] = appSettingsInstance.Content
+		return response, err
 	case "country":
 		if objectId == "" {
 			countryInstance := Country{}
 			err = json.Unmarshal(data, &countryInstance)
-			return fmt.Sprint(countryInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["country"] = countryInstance.Content
+			return response, err
 		}
 
 		countryInstance := CountrySpecific{}
 		err = json.Unmarshal(data, &countryInstance)
-		return fmt.Sprint(countryInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["country"] = countryInstance.Content
+		return response, err
 	case "currency":
 		if objectId == "" {
 			currencyInstance := Currency{}
 			err = json.Unmarshal(data, &currencyInstance)
-			return fmt.Sprint(currencyInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["currency"] = currencyInstance.Content
+			return response, err
 		}
 
 		currencyInstance := CurrencySpecific{}
 		err = json.Unmarshal(data, &currencyInstance)
-		return fmt.Sprint(currencyInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["currency"] = currencyInstance.Content
+		return response, err
 	case "department":
 		if objectId == "" {
 			departmentInstance := Department{}
 			err = json.Unmarshal(data, &departmentInstance)
-			return fmt.Sprint(departmentInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["department"] = departmentInstance.Content
+			return response, err
 		}
 
 		departmentInstance := DepartmentSpecific{}
 		err = json.Unmarshal(data, &departmentInstance)
-		return fmt.Sprint(departmentInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["department"] = departmentInstance.Content
+		return response, err
 	case "email_confirmation":
 		emailInstance := EmailConfirmed{}
 		err = json.Unmarshal(data, &emailInstance)
-		return fmt.Sprint(emailInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["email_confirmation"] = emailInstance.Content
+		return response, err
 	case "language":
 		if objectId == "" {
 			languageInstance := Language{}
 			err = json.Unmarshal(data, &languageInstance)
-			return fmt.Sprint(languageInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["language"] = languageInstance.Content
+			return response, err
 		}
 
 		languageInstance := LanguageSpecific{}
 		err = json.Unmarshal(data, &languageInstance)
-		return fmt.Sprint(languageInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["language"] = languageInstance.Content
+		return response, err
 	case "member":
 		if objectId == "" {
 			memberInstance := Member{}
 			err = json.Unmarshal(data, &memberInstance)
-			return fmt.Sprint(memberInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["member"] = memberInstance.Content
+			return response, err
 		}
 
 		memberInstance := MemberSpecific{}
 		err = json.Unmarshal(data, &memberInstance)
-		return fmt.Sprint(memberInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["member"] = memberInstance.Content
+		return response, err
 	case "profile":
 		if objectId == "" {
 			profileInstance := Profile{}
 			err = json.Unmarshal(data, &profileInstance)
-			return fmt.Sprint(profileInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["profile"] = profileInstance.Content
+			return response, err
 		}
 
 		profileInstance := ProfileSpecific{}
 		err = json.Unmarshal(data, &profileInstance)
-		return fmt.Sprint(profileInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["profile"] = profileInstance.Content
+		return response, err
 	case "team":
 		if objectId == "" {
 			teamInstance := Team{}
 			err = json.Unmarshal(data, &teamInstance)
-			return fmt.Sprint(teamInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["team"] = teamInstance.Content
+			return response, err
 		}
 
 		teamInstance := TeamSpecific{}
 		err = json.Unmarshal(data, &teamInstance)
-		return fmt.Sprint(teamInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["team"] = teamInstance.Content
+		return response, err
 	case "territory":
 		if objectId == "" {
 			territoryInstance := Territory{}
 			err = json.Unmarshal(data, &territoryInstance)
-			return fmt.Sprint(territoryInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["territory"] = territoryInstance.Content
+			return response, err
 		}
 
 		territoryInstance := TerritorySpecific{}
 		err = json.Unmarshal(data, &territoryInstance)
-		return fmt.Sprint(territoryInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["territory"] = territoryInstance.Content
+		return response, err
 	case "transaction_type":
 		if objectId == "" {
 			transactionTypeInstance := TransactionType{}
 			err = json.Unmarshal(data, &transactionTypeInstance)
-			return fmt.Sprint(transactionTypeInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["transaction_type"] = transactionTypeInstance.Content
+			return response, err
 		} else {
 			transactionTypeInstance := TranscationTypeSpecific{}
 			err = json.Unmarshal(data, &transactionTypeInstance)
-			return fmt.Sprint(transactionTypeInstance.Content), err
+			response := make(map[string]interface{})
+			response["transaction_type"] = transactionTypeInstance.Content
+			return response, err
 		}
 
 	case "user":
 		if objectId == "" {
 			userInstance := User{}
 			err = json.Unmarshal(data, &userInstance)
-			return fmt.Sprint(userInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["user"] = userInstance.Content
+			return response, err
 		}
 
 		userInstance := UserSpecific{}
 		err = json.Unmarshal(data, &userInstance)
-		return fmt.Sprint(userInstance.Content), err
+		response := make(map[string]interface{})
+		response["user"] = userInstance.Content
+		return response, err
 	}
 
-	return "", fmt.Errorf("Membership service not found")
+	return nil, fmt.Errorf("Membership service not found")
 }
 
-func TrainingSwitch(service string, objectId string, data []byte) (string, error) {
+func TrainingSwitch(service string, objectId string, data []byte) (map[string]interface{}, error) {
 	var err error
 
 	switch service {
@@ -425,35 +532,49 @@ func TrainingSwitch(service string, objectId string, data []byte) (string, error
 		if objectId == "" {
 			classInstance := Class{}
 			err = json.Unmarshal(data, &classInstance)
-			return fmt.Sprint(classInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["class"] = classInstance.Content
+			return response, err
 		}
 
 		classInstance := ClassSpecific{}
 		err = json.Unmarshal(data, &classInstance)
-		return fmt.Sprint(classInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["class"] = classInstance.Content
+		return response, err
 	case "student":
 		if objectId == "" {
 			studentInstance := Student{}
 			err = json.Unmarshal(data, &studentInstance)
-			return fmt.Sprint(studentInstance.Content[0]), err
+			response := make(map[string]interface{})
+			response["student"] = studentInstance.Content
+			return response, err
 		}
 
 		studentInstance := StudentSpecific{}
 		err = json.Unmarshal(data, &studentInstance)
-		return fmt.Sprint(studentInstance.Content), err
-
+		response := make(map[string]interface{})
+		response["student"] = studentInstance.Content
+		return response, err
 	case "syllabus":
+		response := make(map[string]interface{})
 		if objectId == "" {
 			syllabusInstance := Syllabus{}
 			err = json.Unmarshal(data, &syllabusInstance)
-			return fmt.Sprint(syllabusInstance.Content[0]), err
+			return response, err
 		}
 
 		syllabusInstance := SyllabusSpecific{}
 		err = json.Unmarshal(data, &syllabusInstance)
-		return fmt.Sprint(syllabusInstance.Content), err
+
+		response["id"] = syllabusInstance.Content.ID
+		response["name"] = syllabusInstance.Content.Name
+		response["description"] = syllabusInstance.Content.Description
+		response["member_id"] = syllabusInstance.Content.MemberID
+		response["uri"] = syllabusInstance.Content.URI
+
+		return response, err
 	}
 
-	return "", fmt.Errorf("Training service not found")
+	return nil, fmt.Errorf("Training service not found")
 }
