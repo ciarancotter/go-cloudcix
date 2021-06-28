@@ -1,6 +1,6 @@
 package main
 
-import "github.com/CloudCIX/go-cloudcix/api"
+import "github.com/ciarancotter/go-cloudcix/api"
 
 func main() {
 	my_client := api.CloudCIX_Client{
