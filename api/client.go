@@ -36,7 +36,7 @@ func (cixClient CloudCIXClient) GetToken() (string, error) {
 	return resp["token"], err
 }
 
-func (cixClient CloudCIXClient) ReadData(application string, service string, object_id string, token string) (string, error) {
+func (cixClient CloudCIXClient) ReadData(application string, service string, object_id string, token string) (interface{}, error) {
 	client := http.Client{}
 	url := "https://" + application + "." + cixClient.ApiUrl + "/" + service + "/" + object_id
 	request, err := http.NewRequest("GET", url, nil)
@@ -59,7 +59,7 @@ func (cixClient CloudCIXClient) ReadData(application string, service string, obj
 	return ApplicationSwitch(application, service, object_id, data)
 }
 
-func (cixClient CloudCIXClient) WriteData(application string, service string, object_id string, token string, data map[string]string, method string) (string, error) {
+func (cixClient CloudCIXClient) WriteData(application string, service string, object_id string, token string, data map[string]string, method string) (interface{}, error) {
 	client := http.Client{}
 	url := "https://" + application + "." + cixClient.ApiUrl + "/" + service + "/" + object_id
 	post_data, _ := json.Marshal(data)
@@ -81,7 +81,7 @@ func (cixClient CloudCIXClient) WriteData(application string, service string, ob
 		return "", err
 	}
 
-	return string(body), nil
+	return ApplicationSwitch(application, service, object_id, body)
 }
 
 func (cix_client CloudCIXClient) DeleteData(application string, service string, object_id string, token string) (string, error) {
