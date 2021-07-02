@@ -7,30 +7,23 @@ import (
 )
 
 func main() {
+
+	var err error
+	// Credentials to use the API.
 	client := api.CloudCIXClient{
-		Email:    "example email",
-		Password: "example password",
-		ApiKey:   "example API key",
+		Email:    "jimbobjoe@example.com",
+		Password: "verysecurepassword",
+		ApiKey:   "1234567890abcdefg",
 		ApiUrl:   "api.cloudcix.com",
 	}
 
-	var err error
 	client.Token, err = client.GetToken()
 	if err != nil {
 		// Something has gone wrong with retrieving token - print error
 		panic(err)
 	}
 
-	data, err := client.ReadData("membership", "user", "insert user ID here", client.Token)
-	if err != nil {
-		// Couldn't read data - handle error to find out why
-		panic(err)
-	}
-
-	fmt.Println(data)
-
-	// my_data := map[string]string{"test": "test"}
-	// my_client.Write_Data("iaas", "project", "", my_client.Token, my_data, "POST")
-
-	// my_client.Delete_Data("membership", "user", "insert user ID here", my_client.Token)
+	// Returns a struct containing the information for the syllabus with ID 123.
+	body, err := client.GetSyllabus("123")
+	fmt.Println(body.Content.ID, err)
 }

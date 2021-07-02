@@ -1495,6 +1495,7 @@ type ProjectSpecific struct {
 		ManagerID       int    `json:"manager_id"`
 		MinState        int    `json:"min_state"`
 		Name            string `json:"name"`
+		Note            string `json:"note"`
 		RegionID        int    `json:"region_id"`
 		ShutDown        bool   `json:"shut_down"`
 		Stable          bool   `json:"stable"`
