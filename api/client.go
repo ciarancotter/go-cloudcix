@@ -54,7 +54,14 @@ func (cix CloudCIXClient) GetData(application string, service string, object_id 
 	}
 
 	// Creates the GET request based on the supplied parameters.
-	url := "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id
+	var url string
+
+	if object_id == "" {
+		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id
+	} else {
+		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id + "/"
+	}
+
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -88,7 +95,15 @@ func (cix CloudCIXClient) WriteData(application string, service string, object_i
 	}
 
 	// Formats the data to be sent via POST, PATCH or PUT.
-	url := "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id
+
+	var url string
+
+	if object_id == "" {
+		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id
+	} else {
+		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id + "/"
+	}
+
 	post_data, _ := json.Marshal(data)
 
 	// Due to the way the library works, we have to send it as a buffer.
@@ -108,6 +123,36 @@ func (cix CloudCIXClient) WriteData(application string, service string, object_i
 	}
 
 	// The API usually returns a response containing the created or updated object.
+	body, err := ioutil.ReadAll(response.Body)
+	defer response.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return body, err
+}
+
+func (cix CloudCIXClient) DeleteData(application string, service string, object_id string) ([]byte, error) {
+
+	client := http.Client{}
+	token, err := cix.GetToken()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	url := "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id + "/"
+
+	request, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	request.Header.Set("X-Auth-Token", token)
+	response, err := client.Do(request)
+	if err != nil {
+		return nil, err
+	}
+
 	body, err := ioutil.ReadAll(response.Body)
 	defer response.Body.Close()
 	if err != nil {

@@ -820,7 +820,7 @@ type Domain struct {
 		ID         int    `json:"id"`
 		MemberID   int    `json:"member_id"`
 		ModifiedBy int    `json:"modified_by"`
-		Name       int    `json:"name"`
+		Name       string `json:"name"`
 		Updated    string `json:"updated"`
 		URI        string `json:"uri"`
 	} `json:"content"`
@@ -832,7 +832,7 @@ type DomainSpecific struct {
 		ID         int    `json:"id"`
 		MemberID   int    `json:"member_id"`
 		ModifiedBy int    `json:"modified_by"`
-		Name       int    `json:"name"`
+		Name       string `json:"name"`
 		Updated    string `json:"updated"`
 		URI        string `json:"uri"`
 	} `json:"content"`

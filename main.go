@@ -11,9 +11,9 @@ func main() {
 	var err error
 	// Credentials to use the API.
 	client := api.CloudCIXClient{
-		Email:    "jimbobjoe@example.com",
-		Password: "verysecurepassword",
-		ApiKey:   "1234567890abcdefg",
+		Email:    "example@example.com",
+		Password: "3x4mpl3",
+		ApiKey:   "example_api_key",
 		ApiUrl:   "api.cloudcix.com",
 	}
 
@@ -24,6 +24,9 @@ func main() {
 	}
 
 	// Returns a struct containing the information for the syllabus with ID 123.
-	body, err := client.GetSyllabus("123")
-	fmt.Println(body.Content.ID, err)
+	body, err := client.ListVm()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Print(body.Content[0], err)
 }
