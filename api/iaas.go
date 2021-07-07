@@ -53,7 +53,7 @@ type AllocationSpecific struct {
 	} `json:"content"`
 }
 
-type AppSettingsSpecific struct {
+type IAASAppSettings struct {
 	Content struct {
 		Created         string `json:"created"`
 		ID              int    `json:"id"`

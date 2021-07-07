@@ -229,7 +229,7 @@ type AddressSpecific struct {
 	} `json:"content"`
 }
 
-type AppSettings struct {
+type MembershipAppSettings struct {
 	Content struct {
 		Created        string `json:"created"`
 		ID             int    `json:"id"`

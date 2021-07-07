@@ -44,7 +44,7 @@ func (cix CloudCIXClient) GetToken() (string, error) {
 }
 
 // A general function for reading data using the API.
-func (cix CloudCIXClient) GetData(application string, service string, object_id string) ([]byte, error) {
+func (cix CloudCIXClient) GetData(application string, service string, objectId string) ([]byte, error) {
 
 	// Initialises the client and generates the token.
 	client := http.Client{}
@@ -56,10 +56,10 @@ func (cix CloudCIXClient) GetData(application string, service string, object_id 
 	// Creates the GET request based on the supplied parameters.
 	var url string
 
-	if object_id == "" {
-		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id
+	if objectId == "" {
+		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/"
 	} else {
-		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id + "/"
+		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + objectId + "/"
 	}
 
 	request, err := http.NewRequest("GET", url, nil)
@@ -85,7 +85,7 @@ func (cix CloudCIXClient) GetData(application string, service string, object_id 
 }
 
 // A general function for sending data using the API.
-func (cix CloudCIXClient) WriteData(application string, service string, object_id string, data map[string]string, method string) ([]byte, error) {
+func (cix CloudCIXClient) WriteData(application string, service string, objectId string, data map[string]string, method string) ([]byte, error) {
 
 	// Initialises the client using the supplied credentials.
 	client := http.Client{}
@@ -98,10 +98,10 @@ func (cix CloudCIXClient) WriteData(application string, service string, object_i
 
 	var url string
 
-	if object_id == "" {
-		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id
+	if objectId == "" {
+		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/"
 	} else {
-		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id + "/"
+		url = "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + objectId + "/"
 	}
 
 	post_data, _ := json.Marshal(data)
@@ -132,7 +132,7 @@ func (cix CloudCIXClient) WriteData(application string, service string, object_i
 	return body, err
 }
 
-func (cix CloudCIXClient) DeleteData(application string, service string, object_id string) ([]byte, error) {
+func (cix CloudCIXClient) DeleteData(application string, service string, objectId string) ([]byte, error) {
 
 	client := http.Client{}
 	token, err := cix.GetToken()
@@ -140,7 +140,7 @@ func (cix CloudCIXClient) DeleteData(application string, service string, object_
 		fmt.Print(err)
 	}
 
-	url := "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + object_id + "/"
+	url := "https://" + application + "." + cix.ApiUrl + "/" + service + "/" + objectId + "/"
 
 	request, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
@@ -186,8 +186,8 @@ func (cix CloudCIXClient) ListClass() (Class, error) {
 	return ClassInstance, err
 }
 
-func (cix CloudCIXClient) GetClass(object_id string) (ClassSpecific, error) {
-	data, err := cix.GetData("training", "class", object_id)
+func (cix CloudCIXClient) GetClass(objectId string) (ClassSpecific, error) {
+	data, err := cix.GetData("training", "class", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -201,8 +201,8 @@ func (cix CloudCIXClient) GetClass(object_id string) (ClassSpecific, error) {
 	return ClassInstance, err
 }
 
-func (cix CloudCIXClient) WriteClass(object_id string, payload map[string]string, method string) (ClassSpecific, error) {
-	data, err := cix.WriteData("training", "class", object_id, payload, method)
+func (cix CloudCIXClient) WriteClass(objectId string, payload map[string]string, method string) (ClassSpecific, error) {
+	data, err := cix.WriteData("training", "class", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -231,8 +231,8 @@ func (cix CloudCIXClient) ListSyllabus() (Syllabus, error) {
 	return SyllabusInstance, err
 }
 
-func (cix CloudCIXClient) GetSyllabus(object_id string) (SyllabusSpecific, error) {
-	data, err := cix.GetData("training", "syllabus", object_id)
+func (cix CloudCIXClient) GetSyllabus(objectId string) (SyllabusSpecific, error) {
+	data, err := cix.GetData("training", "syllabus", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -246,8 +246,8 @@ func (cix CloudCIXClient) GetSyllabus(object_id string) (SyllabusSpecific, error
 	return SyllabusInstance, err
 }
 
-func (cix CloudCIXClient) WriteSyllabus(object_id string, payload map[string]string, method string) (SyllabusSpecific, error) {
-	data, err := cix.WriteData("training", "syllabus", object_id, payload, method)
+func (cix CloudCIXClient) WriteSyllabus(objectId string, payload map[string]string, method string) (SyllabusSpecific, error) {
+	data, err := cix.WriteData("training", "syllabus", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -277,8 +277,8 @@ func (cix CloudCIXClient) ListStudent() (Student, error) {
 	return StudentInstance, err
 }
 
-func (cix CloudCIXClient) GetStudent(object_id string) (StudentSpecific, error) {
-	data, err := cix.GetData("training", "student", "object_id")
+func (cix CloudCIXClient) GetStudent(objectId string) (StudentSpecific, error) {
+	data, err := cix.GetData("training", "student", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -292,8 +292,8 @@ func (cix CloudCIXClient) GetStudent(object_id string) (StudentSpecific, error) 
 	return StudentInstance, err
 }
 
-func (cix CloudCIXClient) WriteStudent(object_id string, payload map[string]string, method string) (StudentSpecific, error) {
-	data, err := cix.WriteData("training", "student", object_id, payload, method)
+func (cix CloudCIXClient) WriteStudent(objectId string, payload map[string]string, method string) (StudentSpecific, error) {
+	data, err := cix.WriteData("training", "student", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -324,8 +324,8 @@ func (cix CloudCIXClient) ListAddress() (Address, error) {
 	return AddressInstance, err
 }
 
-func (cix CloudCIXClient) GetAddress(object_id string) (AddressSpecific, error) {
-	data, err := cix.GetData("membership", "address", object_id)
+func (cix CloudCIXClient) GetAddress(objectId string) (AddressSpecific, error) {
+	data, err := cix.GetData("membership", "address", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -339,8 +339,8 @@ func (cix CloudCIXClient) GetAddress(object_id string) (AddressSpecific, error) 
 	return AddressInstance, err
 }
 
-func (cix CloudCIXClient) WriteAddress(object_id string, payload map[string]string, method string) (AddressSpecific, error) {
-	data, err := cix.WriteData("membership", "address", object_id, payload, method)
+func (cix CloudCIXClient) WriteAddress(objectId string, payload map[string]string, method string) (AddressSpecific, error) {
+	data, err := cix.WriteData("membership", "address", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -354,13 +354,13 @@ func (cix CloudCIXClient) WriteAddress(object_id string, payload map[string]stri
 	return AddressInstance, err
 }
 
-func (cix CloudCIXClient) GetAppSettings(object_id string) (AppSettings, error) {
-	data, err := cix.GetData("membership", "app_settings", object_id)
+func (cix CloudCIXClient) GetMembershipAppSettings(objectId string) (MembershipAppSettings, error) {
+	data, err := cix.GetData("membership", "app_settings", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	AppSettingsInstance := AppSettings{}
+	AppSettingsInstance := MembershipAppSettings{}
 	err = json.Unmarshal(data, &AppSettingsInstance)
 	if err != nil {
 		fmt.Println(err)
@@ -369,13 +369,13 @@ func (cix CloudCIXClient) GetAppSettings(object_id string) (AppSettings, error) 
 	return AppSettingsInstance, err
 }
 
-func (cix CloudCIXClient) WriteAppSettings(object_id string, payload map[string]string, method string) (AppSettings, error) {
-	data, err := cix.WriteData("membership", "app_settings", object_id, payload, method)
+func (cix CloudCIXClient) WriteMembershipAppSettings(objectId string, payload map[string]string, method string) (MembershipAppSettings, error) {
+	data, err := cix.WriteData("membership", "app_settings", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	AppSettingsInstance := AppSettings{}
+	AppSettingsInstance := MembershipAppSettings{}
 	err = json.Unmarshal(data, &AppSettingsInstance)
 	if err != nil {
 		fmt.Println(err)
@@ -399,8 +399,8 @@ func (cix CloudCIXClient) ListCountry() (Country, error) {
 	return CountryInstance, err
 }
 
-func (cix CloudCIXClient) GetCountry(object_id string) (CountrySpecific, error) {
-	data, err := cix.GetData("membership", "country", object_id)
+func (cix CloudCIXClient) GetCountry(objectId string) (CountrySpecific, error) {
+	data, err := cix.GetData("membership", "country", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -429,8 +429,8 @@ func (cix CloudCIXClient) ListCurrency() (Currency, error) {
 	return CurrencyInstance, err
 }
 
-func (cix CloudCIXClient) GetCurrency(object_id string) (CurrencySpecific, error) {
-	data, err := cix.GetData("membership", "currency", object_id)
+func (cix CloudCIXClient) GetCurrency(objectId string) (CurrencySpecific, error) {
+	data, err := cix.GetData("membership", "currency", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -459,8 +459,8 @@ func (cix CloudCIXClient) ListDepartment() (Department, error) {
 	return DepartmentInstance, err
 }
 
-func (cix CloudCIXClient) GetDepartment(object_id string) (DepartmentSpecific, error) {
-	data, err := cix.GetData("membership", "department", object_id)
+func (cix CloudCIXClient) GetDepartment(objectId string) (DepartmentSpecific, error) {
+	data, err := cix.GetData("membership", "department", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -474,8 +474,8 @@ func (cix CloudCIXClient) GetDepartment(object_id string) (DepartmentSpecific, e
 	return DepartmentInstance, err
 }
 
-func (cix CloudCIXClient) WriteDepartment(object_id string, payload map[string]string, method string) (DepartmentSpecific, error) {
-	data, err := cix.WriteData("membership", "department", object_id, payload, method)
+func (cix CloudCIXClient) WriteDepartment(objectId string, payload map[string]string, method string) (DepartmentSpecific, error) {
+	data, err := cix.WriteData("membership", "department", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -504,8 +504,8 @@ func (cix CloudCIXClient) ListLanguage() (Language, error) {
 	return LanguageInstance, err
 }
 
-func (cix CloudCIXClient) GetLanguage(object_id string) (LanguageSpecific, error) {
-	data, err := cix.GetData("membership", "language", object_id)
+func (cix CloudCIXClient) GetLanguage(objectId string) (LanguageSpecific, error) {
+	data, err := cix.GetData("membership", "language", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -519,8 +519,8 @@ func (cix CloudCIXClient) GetLanguage(object_id string) (LanguageSpecific, error
 	return LanguageInstance, err
 }
 
-func (cix CloudCIXClient) GetMember(object_id string) (MemberSpecific, error) {
-	data, err := cix.GetData("membership", "member", object_id)
+func (cix CloudCIXClient) GetMember(objectId string) (MemberSpecific, error) {
+	data, err := cix.GetData("membership", "member", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -534,8 +534,8 @@ func (cix CloudCIXClient) GetMember(object_id string) (MemberSpecific, error) {
 	return MemberInstance, err
 }
 
-func (cix CloudCIXClient) WriteMember(object_id string, payload map[string]string, method string) (MemberSpecific, error) {
-	data, err := cix.WriteData("membership", "member", object_id, payload, method)
+func (cix CloudCIXClient) WriteMember(objectId string, payload map[string]string, method string) (MemberSpecific, error) {
+	data, err := cix.WriteData("membership", "member", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -564,8 +564,8 @@ func (cix CloudCIXClient) ListProfile() (Profile, error) {
 	return ProfileInstance, err
 }
 
-func (cix CloudCIXClient) GetProfile(object_id string) (ProfileSpecific, error) {
-	data, err := cix.GetData("membership", "profile", object_id)
+func (cix CloudCIXClient) GetProfile(objectId string) (ProfileSpecific, error) {
+	data, err := cix.GetData("membership", "profile", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -579,8 +579,8 @@ func (cix CloudCIXClient) GetProfile(object_id string) (ProfileSpecific, error) 
 	return ProfileInstance, err
 }
 
-func (cix CloudCIXClient) WriteProfile(object_id string, payload map[string]string, method string) (ProfileSpecific, error) {
-	data, err := cix.WriteData("membership", "profile", object_id, payload, method)
+func (cix CloudCIXClient) WriteProfile(objectId string, payload map[string]string, method string) (ProfileSpecific, error) {
+	data, err := cix.WriteData("membership", "profile", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -609,8 +609,8 @@ func (cix CloudCIXClient) ListTeam() (Team, error) {
 	return TeamInstance, err
 }
 
-func (cix CloudCIXClient) GetTeam(object_id string) (TeamSpecific, error) {
-	data, err := cix.GetData("membership", "team", object_id)
+func (cix CloudCIXClient) GetTeam(objectId string) (TeamSpecific, error) {
+	data, err := cix.GetData("membership", "team", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -624,8 +624,8 @@ func (cix CloudCIXClient) GetTeam(object_id string) (TeamSpecific, error) {
 	return TeamInstance, err
 }
 
-func (cix CloudCIXClient) WriteTeam(object_id string, payload map[string]string, method string) (TeamSpecific, error) {
-	data, err := cix.WriteData("membership", "team", object_id, payload, method)
+func (cix CloudCIXClient) WriteTeam(objectId string, payload map[string]string, method string) (TeamSpecific, error) {
+	data, err := cix.WriteData("membership", "team", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -654,8 +654,8 @@ func (cix CloudCIXClient) ListTerritory() (Territory, error) {
 	return TerritoryInstance, err
 }
 
-func (cix CloudCIXClient) GetTerritory(object_id string) (TerritorySpecific, error) {
-	data, err := cix.GetData("membership", "territory", object_id)
+func (cix CloudCIXClient) GetTerritory(objectId string) (TerritorySpecific, error) {
+	data, err := cix.GetData("membership", "territory", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -669,8 +669,8 @@ func (cix CloudCIXClient) GetTerritory(object_id string) (TerritorySpecific, err
 	return TerritoryInstance, err
 }
 
-func (cix CloudCIXClient) WriteTerritory(object_id string, payload map[string]string, method string) (TerritorySpecific, error) {
-	data, err := cix.WriteData("membership", "territory", object_id, payload, method)
+func (cix CloudCIXClient) WriteTerritory(objectId string, payload map[string]string, method string) (TerritorySpecific, error) {
+	data, err := cix.WriteData("membership", "territory", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -699,8 +699,8 @@ func (cix CloudCIXClient) ListTransactionType() (TransactionType, error) {
 	return TransactionTypeInstance, err
 }
 
-func (cix CloudCIXClient) GetTransactionType(object_id string) (TransactionTypeSpecific, error) {
-	data, err := cix.GetData("membership", "transaction_type", object_id)
+func (cix CloudCIXClient) GetTransactionType(objectId string) (TransactionTypeSpecific, error) {
+	data, err := cix.GetData("membership", "transaction_type", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -729,8 +729,8 @@ func (cix CloudCIXClient) ListUser() (User, error) {
 	return UserInstance, err
 }
 
-func (cix CloudCIXClient) GetUser(object_id string) (UserSpecific, error) {
-	data, err := cix.GetData("membership", "user", object_id)
+func (cix CloudCIXClient) GetUser(objectId string) (UserSpecific, error) {
+	data, err := cix.GetData("membership", "user", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -744,8 +744,8 @@ func (cix CloudCIXClient) GetUser(object_id string) (UserSpecific, error) {
 	return UserInstance, err
 }
 
-func (cix CloudCIXClient) WriteUser(object_id string, payload map[string]string, method string) (UserSpecific, error) {
-	data, err := cix.WriteData("membership", "user", object_id, payload, method)
+func (cix CloudCIXClient) WriteUser(objectId string, payload map[string]string, method string) (UserSpecific, error) {
+	data, err := cix.WriteData("membership", "user", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -776,8 +776,8 @@ func (cix CloudCIXClient) ListAllocation() (Allocation, error) {
 	return AllocationInstance, err
 }
 
-func (cix CloudCIXClient) GetAllocation(object_id string) (AllocationSpecific, error) {
-	data, err := cix.GetData("iaas", "allocation", "object_id")
+func (cix CloudCIXClient) GetAllocation(objectId string) (AllocationSpecific, error) {
+	data, err := cix.GetData("iaas", "allocation", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -790,8 +790,8 @@ func (cix CloudCIXClient) GetAllocation(object_id string) (AllocationSpecific, e
 	return AllocationInstance, err
 }
 
-func (cix CloudCIXClient) WriteAllocation(object_id string, payload map[string]string, method string) (AllocationSpecific, error) {
-	data, err := cix.WriteData("iaas", "allocation", object_id, payload, method)
+func (cix CloudCIXClient) WriteAllocation(objectId string, payload map[string]string, method string) (AllocationSpecific, error) {
+	data, err := cix.WriteData("iaas", "allocation", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -804,6 +804,36 @@ func (cix CloudCIXClient) WriteAllocation(object_id string, payload map[string]s
 
 	return AllocationInstance, err
 
+}
+
+func (cix CloudCIXClient) GetIAASAppSettings(objectId string) (IAASAppSettings, error) {
+	data, err := cix.GetData("iaas", "app_settings", objectId)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	AppSettingsInstance := IAASAppSettings{}
+	err = json.Unmarshal(data, &AppSettingsInstance)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return AppSettingsInstance, err
+}
+
+func (cix CloudCIXClient) WriteIAASAppSettings(objectId string, payload map[string]string, method string) (IAASAppSettings, error) {
+	data, err := cix.WriteData("iaas", "app_settings", objectId, payload, method)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	AppSettingsInstance := IAASAppSettings{}
+	err = json.Unmarshal(data, &AppSettingsInstance)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return AppSettingsInstance, err
 }
 
 func (cix CloudCIXClient) ListAsn() (Asn, error) {
@@ -820,8 +850,8 @@ func (cix CloudCIXClient) ListAsn() (Asn, error) {
 	return AsnInstance, err
 }
 
-func (cix CloudCIXClient) GetAsn(object_id string) (AsnSpecific, error) {
-	data, err := cix.GetData("iaas", "asn", "object_id")
+func (cix CloudCIXClient) GetAsn(objectId string) (AsnSpecific, error) {
+	data, err := cix.GetData("iaas", "asn", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -835,8 +865,8 @@ func (cix CloudCIXClient) GetAsn(object_id string) (AsnSpecific, error) {
 	return AsnInstance, err
 }
 
-func (cix CloudCIXClient) WriteAsn(object_id string, payload map[string]string, method string) (AsnSpecific, error) {
-	data, err := cix.WriteData("iaas", "asn", object_id, payload, method)
+func (cix CloudCIXClient) WriteAsn(objectId string, payload map[string]string, method string) (AsnSpecific, error) {
+	data, err := cix.WriteData("iaas", "asn", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -866,8 +896,8 @@ func (cix CloudCIXClient) ListCixBlacklist() (CixBlacklist, error) {
 	return CixBlacklistInstance, err
 }
 
-func (cix CloudCIXClient) GetCixBlacklist(object_id string) (CixBlacklistSpecific, error) {
-	data, err := cix.GetData("iaas", "cix_blacklist", "object_id")
+func (cix CloudCIXClient) GetCixBlacklist(objectId string) (CixBlacklistSpecific, error) {
+	data, err := cix.GetData("iaas", "cix_blacklist", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -881,8 +911,8 @@ func (cix CloudCIXClient) GetCixBlacklist(object_id string) (CixBlacklistSpecifi
 	return CixBlacklistInstance, err
 }
 
-func (cix CloudCIXClient) WriteCixBlacklist(object_id string, payload map[string]string, method string) (CixBlacklistSpecific, error) {
-	data, err := cix.WriteData("iaas", "cix_blacklist", object_id, payload, method)
+func (cix CloudCIXClient) WriteCixBlacklist(objectId string, payload map[string]string, method string) (CixBlacklistSpecific, error) {
+	data, err := cix.WriteData("iaas", "cix_blacklist", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -912,8 +942,8 @@ func (cix CloudCIXClient) ListCixWhitelist() (CixWhitelist, error) {
 	return CixWhitelistInstance, err
 }
 
-func (cix CloudCIXClient) GetCixWhitelist(object_id string) (CixWhitelistSpecific, error) {
-	data, err := cix.GetData("iaas", "cix_whitelist", "object_id")
+func (cix CloudCIXClient) GetCixWhitelist(objectId string) (CixWhitelistSpecific, error) {
+	data, err := cix.GetData("iaas", "cix_whitelist", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -927,8 +957,8 @@ func (cix CloudCIXClient) GetCixWhitelist(object_id string) (CixWhitelistSpecifi
 	return CixWhitelistInstance, err
 }
 
-func (cix CloudCIXClient) WriteCiXWhitelist(object_id string, payload map[string]string, method string) (CixWhitelistSpecific, error) {
-	data, err := cix.WriteData("iaas", "cix_whitelist", object_id, payload, method)
+func (cix CloudCIXClient) WriteCiXWhitelist(objectId string, payload map[string]string, method string) (CixWhitelistSpecific, error) {
+	data, err := cix.WriteData("iaas", "cix_whitelist", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -957,8 +987,8 @@ func (cix CloudCIXClient) ListCloud() (Cloud, error) {
 	return CloudInstance, err
 }
 
-func (cix CloudCIXClient) WriteCloud(object_id string, payload map[string]string, method string) (Cloud, error) {
-	data, err := cix.WriteData("iaas", "cloud", object_id, payload, method)
+func (cix CloudCIXClient) WriteCloud(objectId string, payload map[string]string, method string) (Cloud, error) {
+	data, err := cix.WriteData("iaas", "cloud", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -988,8 +1018,8 @@ func (cix CloudCIXClient) ListDomain() (Domain, error) {
 	return DomainInstance, err
 }
 
-func (cix CloudCIXClient) GetDomain(object_id string) (DomainSpecific, error) {
-	data, err := cix.GetData("iaas", "domain", "object_id")
+func (cix CloudCIXClient) GetDomain(objectId string) (DomainSpecific, error) {
+	data, err := cix.GetData("iaas", "domain", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1003,8 +1033,8 @@ func (cix CloudCIXClient) GetDomain(object_id string) (DomainSpecific, error) {
 	return DomainInstance, err
 }
 
-func (cix CloudCIXClient) WriteDomain(object_id string, payload map[string]string, method string) (DomainSpecific, error) {
-	data, err := cix.WriteData("iaas", "domain", object_id, payload, method)
+func (cix CloudCIXClient) WriteDomain(objectId string, payload map[string]string, method string) (DomainSpecific, error) {
+	data, err := cix.WriteData("iaas", "domain", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1034,8 +1064,8 @@ func (cix CloudCIXClient) ListImage() (Image, error) {
 	return ImageInstance, err
 }
 
-func (cix CloudCIXClient) GetImage(object_id string) (ImageSpecific, error) {
-	data, err := cix.GetData("iaas", "image", "object_id")
+func (cix CloudCIXClient) GetImage(objectId string) (ImageSpecific, error) {
+	data, err := cix.GetData("iaas", "image", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1049,8 +1079,8 @@ func (cix CloudCIXClient) GetImage(object_id string) (ImageSpecific, error) {
 	return ImageInstance, err
 }
 
-func (cix CloudCIXClient) WriteImage(object_id string, payload map[string]string, method string) (ImageSpecific, error) {
-	data, err := cix.WriteData("iaas", "image", object_id, payload, method)
+func (cix CloudCIXClient) WriteImage(objectId string, payload map[string]string, method string) (ImageSpecific, error) {
+	data, err := cix.WriteData("iaas", "image", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1080,8 +1110,8 @@ func (cix CloudCIXClient) ListInterface() (Interface, error) {
 	return InterfaceInstance, err
 }
 
-func (cix CloudCIXClient) GetInterface(object_id string) (InterfaceSpecific, error) {
-	data, err := cix.GetData("iaas", "interface", "object_id")
+func (cix CloudCIXClient) GetInterface(objectId string) (InterfaceSpecific, error) {
+	data, err := cix.GetData("iaas", "interface", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1095,8 +1125,8 @@ func (cix CloudCIXClient) GetInterface(object_id string) (InterfaceSpecific, err
 	return InterfaceInstance, err
 }
 
-func (cix CloudCIXClient) WriteInterface(object_id string, payload map[string]string, method string) (InterfaceSpecific, error) {
-	data, err := cix.WriteData("iaas", "interface", object_id, payload, method)
+func (cix CloudCIXClient) WriteInterface(objectId string, payload map[string]string, method string) (InterfaceSpecific, error) {
+	data, err := cix.WriteData("iaas", "interface", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1126,8 +1156,8 @@ func (cix CloudCIXClient) ListIpAddress() (IpAddress, error) {
 	return IpAddressInstance, err
 }
 
-func (cix CloudCIXClient) GetIpAddress(object_id string) (IpAddressSpecific, error) {
-	data, err := cix.GetData("iaas", "ip_address", "object_id")
+func (cix CloudCIXClient) GetIpAddress(objectId string) (IpAddressSpecific, error) {
+	data, err := cix.GetData("iaas", "ip_address", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1141,8 +1171,8 @@ func (cix CloudCIXClient) GetIpAddress(object_id string) (IpAddressSpecific, err
 	return IpAddressInstance, err
 }
 
-func (cix CloudCIXClient) WriteIpAddress(object_id string, payload map[string]string, method string) (IpAddressSpecific, error) {
-	data, err := cix.WriteData("iaas", "ip_address", object_id, payload, method)
+func (cix CloudCIXClient) WriteIpAddress(objectId string, payload map[string]string, method string) (IpAddressSpecific, error) {
+	data, err := cix.WriteData("iaas", "ip_address", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1172,8 +1202,8 @@ func (cix CloudCIXClient) ListIpmi() (Ipmi, error) {
 	return IpmiInstance, err
 }
 
-func (cix CloudCIXClient) GetIpmi(object_id string) (IpmiSpecific, error) {
-	data, err := cix.GetData("iaas", "ipmi", "object_id")
+func (cix CloudCIXClient) GetIpmi(objectId string) (IpmiSpecific, error) {
+	data, err := cix.GetData("iaas", "ipmi", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1187,8 +1217,8 @@ func (cix CloudCIXClient) GetIpmi(object_id string) (IpmiSpecific, error) {
 	return IpmiInstance, err
 }
 
-func (cix CloudCIXClient) WriteIpmi(object_id string, payload map[string]string, method string) (IpmiSpecific, error) {
-	data, err := cix.WriteData("iaas", "ipmi", object_id, payload, method)
+func (cix CloudCIXClient) WriteIpmi(objectId string, payload map[string]string, method string) (IpmiSpecific, error) {
+	data, err := cix.WriteData("iaas", "ipmi", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1218,8 +1248,8 @@ func (cix CloudCIXClient) ListPoolIp() (PoolIp, error) {
 	return PoolIpInstance, err
 }
 
-func (cix CloudCIXClient) GetPoolIp(object_id string) (PoolIpSpecific, error) {
-	data, err := cix.GetData("iaas", "pool_ip", "object_id")
+func (cix CloudCIXClient) GetPoolIp(objectId string) (PoolIpSpecific, error) {
+	data, err := cix.GetData("iaas", "pool_ip", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1233,8 +1263,8 @@ func (cix CloudCIXClient) GetPoolIp(object_id string) (PoolIpSpecific, error) {
 	return PoolIpInstance, err
 }
 
-func (cix CloudCIXClient) WritePoolIp(object_id string, payload map[string]string, method string) (PoolIpSpecific, error) {
-	data, err := cix.WriteData("iaas", "pool_ip", object_id, payload, method)
+func (cix CloudCIXClient) WritePoolIp(objectId string, payload map[string]string, method string) (PoolIpSpecific, error) {
+	data, err := cix.WriteData("iaas", "pool_ip", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1264,8 +1294,8 @@ func (cix CloudCIXClient) ListProject() (Project, error) {
 	return ProjectInstance, err
 }
 
-func (cix CloudCIXClient) GetProject(object_id string) (ProjectSpecific, error) {
-	data, err := cix.GetData("iaas", "project", "object_id")
+func (cix CloudCIXClient) GetProject(objectId string) (ProjectSpecific, error) {
+	data, err := cix.GetData("iaas", "project", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1279,8 +1309,8 @@ func (cix CloudCIXClient) GetProject(object_id string) (ProjectSpecific, error) 
 	return ProjectInstance, err
 }
 
-func (cix CloudCIXClient) WriteProject(object_id string, payload map[string]string, method string) (ProjectSpecific, error) {
-	data, err := cix.WriteData("iaas", "project", object_id, payload, method)
+func (cix CloudCIXClient) WriteProject(objectId string, payload map[string]string, method string) (ProjectSpecific, error) {
+	data, err := cix.WriteData("iaas", "project", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1310,8 +1340,8 @@ func (cix CloudCIXClient) ListPtrRecord() (PtrRecord, error) {
 	return PtrRecordInstance, err
 }
 
-func (cix CloudCIXClient) GetPtrRecord(object_id string) (PtrRecordSpecific, error) {
-	data, err := cix.GetData("iaas", "ptr_record", "object_id")
+func (cix CloudCIXClient) GetPtrRecord(objectId string) (PtrRecordSpecific, error) {
+	data, err := cix.GetData("iaas", "ptr_record", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1325,8 +1355,8 @@ func (cix CloudCIXClient) GetPtrRecord(object_id string) (PtrRecordSpecific, err
 	return PtrRecordInstance, err
 }
 
-func (cix CloudCIXClient) WritePtrRecord(object_id string, payload map[string]string, method string) (PtrRecordSpecific, error) {
-	data, err := cix.WriteData("iaas", "ptr_record", object_id, payload, method)
+func (cix CloudCIXClient) WritePtrRecord(objectId string, payload map[string]string, method string) (PtrRecordSpecific, error) {
+	data, err := cix.WriteData("iaas", "ptr_record", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1356,8 +1386,8 @@ func (cix CloudCIXClient) ListRecord() (Record, error) {
 	return RecordInstance, err
 }
 
-func (cix CloudCIXClient) GetRecord(object_id string) (RecordSpecific, error) {
-	data, err := cix.GetData("iaas", "record", "object_id")
+func (cix CloudCIXClient) GetRecord(objectId string) (RecordSpecific, error) {
+	data, err := cix.GetData("iaas", "record", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1371,8 +1401,8 @@ func (cix CloudCIXClient) GetRecord(object_id string) (RecordSpecific, error) {
 	return RecordInstance, err
 }
 
-func (cix CloudCIXClient) WriteRecord(object_id string, payload map[string]string, method string) (RecordSpecific, error) {
-	data, err := cix.WriteData("iaas", "record", object_id, payload, method)
+func (cix CloudCIXClient) WriteRecord(objectId string, payload map[string]string, method string) (RecordSpecific, error) {
+	data, err := cix.WriteData("iaas", "record", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1402,8 +1432,8 @@ func (cix CloudCIXClient) ListRouter() (Router, error) {
 	return RouterInstance, err
 }
 
-func (cix CloudCIXClient) GetRouter(object_id string) (RouterSpecific, error) {
-	data, err := cix.GetData("iaas", "router", "object_id")
+func (cix CloudCIXClient) GetRouter(objectId string) (RouterSpecific, error) {
+	data, err := cix.GetData("iaas", "router", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1417,8 +1447,8 @@ func (cix CloudCIXClient) GetRouter(object_id string) (RouterSpecific, error) {
 	return RouterInstance, err
 }
 
-func (cix CloudCIXClient) WriteRouter(object_id string, payload map[string]string, method string) (RouterSpecific, error) {
-	data, err := cix.WriteData("iaas", "router", object_id, payload, method)
+func (cix CloudCIXClient) WriteRouter(objectId string, payload map[string]string, method string) (RouterSpecific, error) {
+	data, err := cix.WriteData("iaas", "router", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1448,8 +1478,8 @@ func (cix CloudCIXClient) ListServer() (Server, error) {
 	return ServerInstance, err
 }
 
-func (cix CloudCIXClient) GetServer(object_id string) (ServerSpecific, error) {
-	data, err := cix.GetData("iaas", "server", "object_id")
+func (cix CloudCIXClient) GetServer(objectId string) (ServerSpecific, error) {
+	data, err := cix.GetData("iaas", "server", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1463,8 +1493,8 @@ func (cix CloudCIXClient) GetServer(object_id string) (ServerSpecific, error) {
 	return ServerInstance, err
 }
 
-func (cix CloudCIXClient) WriteServer(object_id string, payload map[string]string, method string) (ServerSpecific, error) {
-	data, err := cix.WriteData("iaas", "server", object_id, payload, method)
+func (cix CloudCIXClient) WriteServer(objectId string, payload map[string]string, method string) (ServerSpecific, error) {
+	data, err := cix.WriteData("iaas", "server", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1494,8 +1524,8 @@ func (cix CloudCIXClient) ListServerType() (ServerType, error) {
 	return ServerTypeInstance, err
 }
 
-func (cix CloudCIXClient) GetServerType(object_id string) (ServerTypeSpecific, error) {
-	data, err := cix.GetData("iaas", "server_type", "object_id")
+func (cix CloudCIXClient) GetServerType(objectId string) (ServerTypeSpecific, error) {
+	data, err := cix.GetData("iaas", "server_type", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1524,8 +1554,8 @@ func (cix CloudCIXClient) ListStorageType() (StorageType, error) {
 	return StorageTypeInstance, err
 }
 
-func (cix CloudCIXClient) GetStorageType(object_id string) (StorageTypeSpecific, error) {
-	data, err := cix.GetData("iaas", "storage_type", "object_id")
+func (cix CloudCIXClient) GetStorageType(objectId string) (StorageTypeSpecific, error) {
+	data, err := cix.GetData("iaas", "storage_type", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1539,8 +1569,8 @@ func (cix CloudCIXClient) GetStorageType(object_id string) (StorageTypeSpecific,
 	return StorageTypeInstance, err
 }
 
-func (cix CloudCIXClient) WriteStorageType(object_id string, payload map[string]string, method string) (StorageTypeSpecific, error) {
-	data, err := cix.WriteData("iaas", "storage_type", object_id, payload, method)
+func (cix CloudCIXClient) WriteStorageType(objectId string, payload map[string]string, method string) (StorageTypeSpecific, error) {
+	data, err := cix.WriteData("iaas", "storage_type", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1570,8 +1600,8 @@ func (cix CloudCIXClient) ListSubnet() (Subnet, error) {
 	return SubnetInstance, err
 }
 
-func (cix CloudCIXClient) GetSubnet(object_id string) (SubnetSpecific, error) {
-	data, err := cix.GetData("iaas", "subnet", "object_id")
+func (cix CloudCIXClient) GetSubnet(objectId string) (SubnetSpecific, error) {
+	data, err := cix.GetData("iaas", "subnet", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1585,8 +1615,8 @@ func (cix CloudCIXClient) GetSubnet(object_id string) (SubnetSpecific, error) {
 	return SubnetInstance, err
 }
 
-func (cix CloudCIXClient) WriteSubnet(object_id string, payload map[string]string, method string) (SubnetSpecific, error) {
-	data, err := cix.WriteData("iaas", "subnet", object_id, payload, method)
+func (cix CloudCIXClient) WriteSubnet(objectId string, payload map[string]string, method string) (SubnetSpecific, error) {
+	data, err := cix.WriteData("iaas", "subnet", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1616,8 +1646,8 @@ func (cix CloudCIXClient) ListVirtualRouter() (VirtualRouter, error) {
 	return VirtualRouterInstance, err
 }
 
-func (cix CloudCIXClient) GetVirtualRouter(object_id string) (VirtualRouterSpecific, error) {
-	data, err := cix.GetData("iaas", "virtual_router", "object_id")
+func (cix CloudCIXClient) GetVirtualRouter(objectId string) (VirtualRouterSpecific, error) {
+	data, err := cix.GetData("iaas", "virtual_router", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1631,8 +1661,8 @@ func (cix CloudCIXClient) GetVirtualRouter(object_id string) (VirtualRouterSpeci
 	return VirtualRouterInstance, err
 }
 
-func (cix CloudCIXClient) WriteVirtualRouter(object_id string, payload map[string]string, method string) (VirtualRouterSpecific, error) {
-	data, err := cix.WriteData("iaas", "virtual_router", object_id, payload, method)
+func (cix CloudCIXClient) WriteVirtualRouter(objectId string, payload map[string]string, method string) (VirtualRouterSpecific, error) {
+	data, err := cix.WriteData("iaas", "virtual_router", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1662,8 +1692,8 @@ func (cix CloudCIXClient) ListVm() (Vm, error) {
 	return VmInstance, err
 }
 
-func (cix CloudCIXClient) GetVm(object_id string) (VmSpecific, error) {
-	data, err := cix.GetData("iaas", "vm", "object_id")
+func (cix CloudCIXClient) GetVm(objectId string) (VmSpecific, error) {
+	data, err := cix.GetData("iaas", "vm", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1677,8 +1707,8 @@ func (cix CloudCIXClient) GetVm(object_id string) (VmSpecific, error) {
 	return VmInstance, err
 }
 
-func (cix CloudCIXClient) WriteVm(object_id string, payload map[string]string, method string) (VmSpecific, error) {
-	data, err := cix.WriteData("iaas", "vm", object_id, payload, method)
+func (cix CloudCIXClient) WriteVm(objectId string, payload map[string]string, method string) (VmSpecific, error) {
+	data, err := cix.WriteData("iaas", "vm", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1708,8 +1738,8 @@ func (cix CloudCIXClient) ListVpn() (Vpn, error) {
 	return VpnInstance, err
 }
 
-func (cix CloudCIXClient) GetVpn(object_id string) (VpnSpecific, error) {
-	data, err := cix.GetData("iaas", "vpn", "object_id")
+func (cix CloudCIXClient) GetVpn(objectId string) (VpnSpecific, error) {
+	data, err := cix.GetData("iaas", "vpn", objectId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1723,8 +1753,8 @@ func (cix CloudCIXClient) GetVpn(object_id string) (VpnSpecific, error) {
 	return VpnInstance, err
 }
 
-func (cix CloudCIXClient) WriteVpn(object_id string, payload map[string]string, method string) (VpnSpecific, error) {
-	data, err := cix.WriteData("iaas", "vpn", object_id, payload, method)
+func (cix CloudCIXClient) WriteVpn(objectId string, payload map[string]string, method string) (VpnSpecific, error) {
+	data, err := cix.WriteData("iaas", "vpn", objectId, payload, method)
 	if err != nil {
 		fmt.Println(err)
 	}
